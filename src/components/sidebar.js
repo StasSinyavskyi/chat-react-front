@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import Hidden from 'material-ui/Hidden';
-import Classnames from 'classnames';
-import Drawer from 'material-ui/Drawer';
+//import Hidden from 'material-ui/Hidden';
+//import Classnames from 'classnames';
+//import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 import AddIcon from 'material-ui-icons/Add';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
-import Avatar from 'material-ui/Avatar';
+import Avatar from './avatar';
 
-import AvatarText from '../utils/avatar-text'
+
 
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
@@ -46,7 +46,9 @@ const Sidebar =({classes,chats})=>(
     <List className={classes.chatsList}>
       {chats.map((chat, index) => ( 
         <ListItem key={index} button>
-          <Avatar>{chat.title && AvatarText(chat.title)}</Avatar>
+          <Avatar textforcolorgen={chat.title}>
+            {chat.title}
+          </Avatar>
           <ListItemText primary={chat.title}/>
         </ListItem>
       ))}

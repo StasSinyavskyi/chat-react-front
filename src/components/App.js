@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
 
-import Classnames from 'classnames';
 
 import { withStyles } from 'material-ui/styles';
 
+import { chats, messages } from '../mock-data';
 
-
-
-
-
-
-import Button from 'material-ui/Button';
-
-
-
-
-
-
-import AddIcon from 'material-ui-icons/Add';
- 
-
-
-
-import { chats, messages } from './mock-data';
-
-import SidebarWrap from './components/sidebar-wrap';
-import Chatheader from './components/chat-header';
-import Chat from './components/chat';
+import SidebarWrap from './sidebar-wrap';
+import Chatheader from './chat-header';
+import Chat from './chat';
  
 const styles = theme => ({
   root: {
@@ -42,10 +23,9 @@ const styles = theme => ({
 })
 
 class App extends Component {
- // state = {
-  //  mobileOpen: false,
- // }; 
-  
+
+ 
+
   render() {
     const { classes } = this.props;
 

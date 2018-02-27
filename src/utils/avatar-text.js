@@ -3,7 +3,7 @@ export default function avatarText(writerName){
     return writerName.split(' ').map(word=>word[0]).map(chat=>chat.toUpperCase()).slice(0,2);
   }
   catch(e){
-    console.log(e);
+    console.error(e);
     return ':)'
    }
 }

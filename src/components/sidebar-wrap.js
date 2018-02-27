@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import Hidden from 'material-ui/Hidden';
+//import Hidden from 'material-ui/Hidden';
 
 import Drawer from 'material-ui/Drawer';
 

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Classnames from 'classnames';
 import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
+import Avatar from './avatar';
 
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
 
-import AvatarText from '../utils/avatar-text';
-
+import Message from './message';
+import MessageInput from './message-input';
 
 const Styles = theme =>({
   chatLayout: {
@@ -41,69 +41,44 @@ const Styles = theme =>({
   messageInput: {
     padding: theme.spacing.unit * 2,
   },
-  messageWrapper: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
-  },
-  myMessageWrappper: {
-    justifyContent: 'flex-end',
-  },
-  message: {
-    maxWidth: '70%',
-    minWidth: '10%',
-    padding: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 2,
-  },
-  messageFromMe: {
-    marginRight: theme.spacing.unit * 2,
-    backgroundColor: '#e6dcff'
-  },
+  
 });
 
 
 
-const Chat =({classes,messages})=>(
-  <main className={classes.chatLayout}>
-          <div className={classes.messagesWrapper}>
-          {messages && messages.map((message, index) => {
-            const myMessage = message.sender === 'me';
-            const userAvatar = (
-              <Avatar>
-                {message.sender && AvatarText(message.sender)}
-              </Avatar>
-            );
+class Chat extends React.Component {
+  componentDidMount(){
+    this.scrolDown();
+  }
 
-            return (
-              <div key={index} className={Classnames(
-                classes.messageWrapper,
-                myMessage && classes.myMessageWrappper)}>
-
-                {!myMessage && userAvatar}
-                <Paper className={Classnames(
-                    classes.message,
-                    myMessage && classes.myMessageWrappper)}>
-                    <Typography variant="caption">
-                      {message.sender}
-                    </Typography>
-                    <Typography variant="body1">
-                      {message.content}
-                    </Typography>
-                  </Paper>
-
-                {myMessage && userAvatar}
-              </div>  
-            ); 
-          })} 
+  componentDidUpdate(){
+    this.scrolDown();
+  }
+ // state = {
+  //  mobileOpen: false,
+ // }; 
+   
+  scrolDown(){
+    const messagesWrapper=this.refs.messageswrapper;
+    //console.log(messagesWrapper.scrollHeight);
+    if (messagesWrapper){
+      messagesWrapper.scrollTop=messagesWrapper.scrollHeight;
+      
+    }
+  }
+  render() {
+    const {classes, messages} = this.props;
+    return( 
+      <main className={classes.chatLayout}>
+          <div className={classes.messagesWrapper} ref="messageswrapper">
+            {messages && messages.map((message, index) => (
+              <Message key={index} {...message} />
+              )) 
+            }          
           </div>
-          <div className={classes.messageInputWrapper}>
-            <Paper className={classes.messageInput} elevation={6}>
-              <Input fullWidth placeholder="Type your message…"/>
-            </Paper>
-          </div>
-        </main>   
+          <MessageInput />
+      </main>   
 );
-
+}}
 
 export default withStyles(Styles)(Chat);
