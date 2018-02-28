@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
-
+import {BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+//import Switch from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 
-import { chats, messages } from '../mock-data';
+//import { chats, messages } from '../mock-data';
 
-import SidebarWrap from './sidebar-wrap';
-import Chatheader from './chat-header';
-import Chat from './chat';
+import WelcomePage from './welcome-page';
+import ChatPage from './chat-page';
  
 const styles = theme => ({
   root: {
@@ -22,27 +21,41 @@ const styles = theme => ({
   
 })
 
-class App extends Component {
+
+const App = ()=>(
+  <Router>
+    <React.Fragment>
+      <Switch>
+        <Route exact path='/chat' component={ChatPage} />
+        <Route path='/(welcome)?' component={WelcomePage} />
+        <Redirect to='/' />
+      </Switch>
+    </React.Fragment>
+  </Router> 
+)
+
+
+//class App extends Component {
 
  
 
-  render() {
-    const { classes } = this.props;
+ // render() {
+ //   const { classes } = this.props;
 
     
 
-    return (
-      <div className={classes.root}>
+ //   return (
+ //     <div className={classes.root}>
           
-        <Chatheader />
+ //       <Chatheader />
 
-        <SidebarWrap chats={chats} />
+  //      <SidebarWrap chats={chats} />
 
-        <Chat messages={messages} />
+ //       <Chat messages={messages} />
         
-      </div>
-    );
-  }
-}
+ //     </div>
+ //   );
+ // }
+//}
 
-export default withStyles(styles)(App);
+export default (App);

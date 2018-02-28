@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Typography from 'material-ui/Typography';
 
+import ChatSettings from '../chat-settings';
 
 const Styles = theme =>({
   appBar: {
@@ -37,7 +38,7 @@ const Chatheader =({classes})=>(
         <MenuIcon />
         </IconButton>
       <Typography variant="title" color="inherit" noWrap>
-        My lucky Chat
+        {ChatSettings.title}
       </Typography>
     </Toolbar>
   </AppBar>   
