@@ -21,10 +21,20 @@ class LoginForm extends React.Component {
     },
   }
 
+  //HandleUserNameChang =(event) =>{
+  //  event.persist();
+  //  this.setState((prevState)=>({
+  //    username : {
+  //      ...prevState.username,
+  //      value : event.target.value,
+  //    }
+  //  }));
+  //}
+
   handleInputChange = (event) => {
     event.persist();
     const { name, value } = event.target;
-    console.log(name +" "+ value);
+    //console.log(name +" "+ value+" ");
     this.setState((prevState) => ({
       [name]: {
         ...prevState[name],
@@ -38,9 +48,10 @@ class LoginForm extends React.Component {
     
     const { username, password } = this.state;
 
-    console.log('Login:', username.value, password.value);
+    //console.log('Login:', username.value, password.value);
 
-    // ...
+    this.props.onSubmit(username.value,password.value);
+    
   }
 
   render() {

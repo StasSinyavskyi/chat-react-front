@@ -58,22 +58,10 @@ class SignupForm extends React.Component {
 
     const { username, password } = this.state;
 
-    console.log('Sign up:', username.value, password.value);
+    //console.log('Sign up:', username.value, password.value);
 
-    fetch('http://localhost:8000/v1/signup', {
-      method: "POST",
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json => console.log(json))
-      .catch(reason => console.error(reason));
+    //redux
+    this.props.onSubmit(username.value,password.value);
   }
 
   render() {

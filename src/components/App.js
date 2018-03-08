@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import {Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 //import Switch from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-
+import {Provider} from 'react-redux';
 //import { chats, messages } from '../mock-data';
 
-import WelcomePage from './welcome-page';
-import ChatPage from './chat-page';
+import PrivateRoute from '../containers/private-route';
+import WelcomePage from '../containers/welcome-page';
+import ChatPage from '../containers/chat-page';
+
+import history from '../utils/history';
+
+import configureStore from '../store';
  
 const styles = theme => ({
   root: {
@@ -21,17 +26,20 @@ const styles = theme => ({
   
 })
 
+const store = configureStore();
 
 const App = ()=>(
-  <Router>
-    <React.Fragment>
-      <Switch>
-        <Route exact path='/chat' component={ChatPage} />
-        <Route path='/(welcome)?' component={WelcomePage} />
-        <Redirect to='/' />
-      </Switch>
-    </React.Fragment>
-  </Router> 
+  <Provider store={store}>
+    <Router history={history}>
+      <React.Fragment>
+        <Switch>
+          <PrivateRoute exact path='/chat' component={ChatPage} />
+          <Route path='/(welcome)?' component={WelcomePage} />
+          <Redirect to='/' />
+        </Switch>
+      </React.Fragment>
+    </Router>
+  </Provider>
 )
 
 

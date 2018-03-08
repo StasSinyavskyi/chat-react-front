@@ -5,5 +5,15 @@ import './index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+const rootElement=document.getElementById('root');
+
+ReactDOM.render(<App />, rootElement);
+
+if (module.hot) {
+  module.hot.accept('./components/App', () => {
+    ReactDOM.render(<App />, rootElement)
+  })
+}
+
 registerServiceWorker();

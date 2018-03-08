@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
 
+import {Redirect} from 'react-router-dom';
+
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -33,8 +35,15 @@ class WelcomePage extends Component {
   }
 
   render () {
-    const {classes}=this.props;
+    const {classes, signup, login, isUserAuthentificated}=this.props;
     const {currentTab}=this.state;
+
+    if (isUserAuthentificated){
+      //redirect to chatPage
+      return(
+       <Redirect to='./chat'/>
+      )
+    }
 
     return (
       <React.Fragment>
@@ -54,8 +63,8 @@ class WelcomePage extends Component {
               </Tabs>  
             </AppBar>
             <div className={classes.tabContent}>
-              {currentTab===0 && <LoginForm/>}
-              {currentTab===1 && <SignupForm/>}
+              {currentTab===0 && <LoginForm onSubmit={login}/>}
+              {currentTab===1 && <SignupForm onSubmit={signup}/>}
             </div>
           </Paper>
         </Grid>
