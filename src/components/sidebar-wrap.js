@@ -24,10 +24,10 @@ const Styles = theme =>({
 
 
 
-const SidebarWrap =({classes, chats})=>(
+const SidebarWrap =({classes, chats, activeChats,createChat})=>(
   <div>
     <Drawer variant="permanent" open classes={{paper: classes.drawerPaper}}>
-      <Sidebar chats={chats} />
+      <Sidebar chats={chats} activeChats={activeChats} createChat={createChat}/>
 
     </Drawer>
     

@@ -1,5 +1,5 @@
 //possible types of this reducer
-import * as types from '../constants';
+import * as types from '../constants/auth';
 
 const token = localStorage.getItem('token');
 
@@ -10,9 +10,9 @@ const initialState ={
   token,
 }
 
-//reducer
+//reducer - формирует состояние
 export default function auth (state=initialState, action){
- // console.log(action);
+  //console.log(action.payload);
 
 
   switch (action.type){
@@ -30,6 +30,11 @@ export default function auth (state=initialState, action){
       isUserAuthentificated:true,
       user: action.payload.user,
     } 
+    case types.EDIT_PROFILE_SUCCESS:
+    return{
+      ...state,
+      user:action.payload.user,
+    }
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE: 
     case types.LOGOUT_SUCCESS:
@@ -40,6 +45,7 @@ export default function auth (state=initialState, action){
         user: null,
         token: null,
     };
+    
     default:
       return state;
   }

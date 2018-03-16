@@ -8,6 +8,8 @@ import {Provider} from 'react-redux';
 import PrivateRoute from '../containers/private-route';
 import WelcomePage from '../containers/welcome-page';
 import ChatPage from '../containers/chat-page';
+import Profile from '../containers/profile';
+
 
 import history from '../utils/history';
 
@@ -33,8 +35,10 @@ const App = ()=>(
     <Router history={history}>
       <React.Fragment>
         <Switch>
-          <PrivateRoute exact path='/chat' component={ChatPage} />
+        <PrivateRoute path="/chat/:chatId?" component={ChatPage} />
+          <PrivateRoute path='/profile' component={Profile} />
           <Route path='/(welcome)?' component={WelcomePage} />
+          
           <Redirect to='/' />
         </Switch>
       </React.Fragment>

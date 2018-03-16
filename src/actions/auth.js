@@ -1,47 +1,27 @@
-import {SIGNUP_REQUEST, 
-  SIGNUP_SUCCESS, 
-  SIGNUP_FAILURE,
-  LOGIN_REQUEST,
-  LOGIN_FAILURE,
-  LOGIN_SUCCESS,
-  LOGOUT_FAILURE,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  RECIEVE_AUTH_FAILURE,
-  RECIEVE_AUTH_REQUEST,
-  RECIEVE_AUTH_SUCCESS,
-  } from '../constants';
+import * as types from '../constants/auth';
+
+import {chatApi,redirectto} from './services';
+
+
 
 //action creator
 export function login(username, password){
   return (dispatch)=>{
     dispatch({
-      type: LOGIN_REQUEST,
+      type: types.LOGIN_REQUEST,
     })
 
-    return  fetch('http://localhost:8000/v1/login', {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      //.then(json => console.log(json))
-      //.catch(reason => console.error(reason));
+    return chatApi('login',username,password)
+   
       .then(json => 
         { 
           if (!json.token) {throw console.error('Token is not provided');}
   
           localStorage.setItem('token',json.token);
   
-          dispatch({type: LOGIN_SUCCESS, payload: json,})}
+          dispatch({type: types.LOGIN_SUCCESS, payload: json,})}
       )
-      .catch(reason => dispatch({type: LOGIN_FAILURE, payload: reason,}));
+      .catch(reason => dispatch({type: types.LOGIN_FAILURE, payload: reason,}));
 
   }
 }
@@ -50,41 +30,57 @@ export function login(username, password){
 export function logout(){
   return (dispatch)=>{
     dispatch({
-      type: LOGOUT_REQUEST,
-    })
+      type: types.LOGOUT_REQUEST,
+    });
+    
+    localStorage.removeItem('token');
+
+    dispatch({
+      type: types.LOGOUT_SUCCESS,
+    });
+
+  }
+
+}
+
+
+//action creator
+export function toProfile(){
+  return (dispatch)=>{
+    dispatch(redirectto('/profile'));
+
   }
 
 }
 
 //action creator
+export function toChat(){
+  return (dispatch)=>{
+    dispatch(redirectto('/chat'));
+
+  }
+
+}
+
+
+
+//action creator
 export function signup(username, password){
   return (dispatch)=>{
     dispatch({
-      type: SIGNUP_REQUEST
+      type: types.SIGNUP_REQUEST
     })
 
-  return  fetch('http://localhost:8000/v1/signup', {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-        //username: username.value,
-        //password: password.value,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
+    return chatApi('signup',username,password)
+  
       .then(json =>{ 
         if (!json.token){throw console.error('Token is not provided');}
 
         localStorage.setItem('token',json.token);
 
-        dispatch({type: SIGNUP_SUCCESS, payload: json,})}
+        dispatch({type: types.SIGNUP_SUCCESS, payload: json,})}
       )
-      .catch(reason => dispatch({type: SIGNUP_FAILURE, payload: reason,}));
+      .catch(reason => dispatch({type: types.SIGNUP_FAILURE, payload: reason,}));
   }
 }
 
@@ -95,27 +91,53 @@ export function receiveAuth(){
     const {token}=getState().auth;//auth is the name of reducer
 
     if (!token){
-      console.log("token not exist");
+     // console.log("token not exist");
      return dispatch({
-        type: RECIEVE_AUTH_FAILURE,
+        type: types.RECIEVE_AUTH_FAILURE,
       })
     }
-console.log("token exist");
-    return  fetch('http://localhost:8000/v1/users/me', {
-      method: "GET", //we can skip it because GET is default method     
-      headers: {
-        'Autherization': 'Bearer ${token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
+    //console.log(token);
+    return chatApi('users/me',token)
+    
       .then(json =>{ 
-        dispatch({type: RECIEVE_AUTH_SUCCESS, payload: json,})}
+        if (!json.user){throw console.error('User is not returned');}
+        dispatch({type: types.RECIEVE_AUTH_SUCCESS, payload: json,})}
       )
-      .catch(reason => dispatch({type: RECIEVE_AUTH_FAILURE, payload: reason,}));
+      .catch(reason => dispatch({type: types.RECIEVE_AUTH_FAILURE, payload: reason,}));
   
 
 
   }
 }
+
+export function editProfile(username,firstname,lastname,city){
+  return (dispatch,getState)=>{
+    const {token}=getState().auth;
+
+    if (!token){
+      // console.log("token not exist");
+      return dispatch({
+         type: types.RECIEVE_AUTH_FAILURE,
+       })
+     }
+
+    dispatch({
+      type: types.EDIT_PROFILE_REQUEST
+    })
+
+    return chatApi('userupdate',token,username,firstname,lastname)
+    
+      .then(json =>{ 
+        if (!json.user){throw console.error('User is not returned');}
+        dispatch({type: types.EDIT_PROFILE_SUCCESS, payload: json,});
+        dispatch(redirectto('/chat'));
+        console.log('tt');
+      }
+      )
+      .catch(reason => dispatch({type: types.EDIT_PROFILE_FAILURE, payload: reason,}));
+
+  }
+
+}
+
+

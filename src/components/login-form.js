@@ -33,7 +33,9 @@ class LoginForm extends React.Component {
 
   handleInputChange = (event) => {
     event.persist();
+    
     const { name, value } = event.target;
+    //console.log(name,value);
     //console.log(name +" "+ value+" ");
     this.setState((prevState) => ({
       [name]: {
@@ -53,6 +55,8 @@ class LoginForm extends React.Component {
     this.props.onSubmit(username.value,password.value);
     
   }
+
+ 
 
   render() {
     const { classes } = this.props;

@@ -1,18 +1,19 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {signup, login} from '../actions';
-import WelcomePage from '../components/welcome-page'
+import {editProfile} from '../actions';
+import ProfileEdit from '../components/profile-form';
+import {receiveAuth} from '../actions/auth'
 
 const mapStateToProps = state =>({
   isUserAuthentificated: state.auth.isUserAuthentificated,
+  user: state.auth.user,
 });
 
 //short and full version are equal
 
 //shortversion  with binding
 const mapDispatchToProps = dispatch=>bindActionCreators({
-  signup,
-  login,
+  editProfile,receiveAuth,
 },dispatch)
 
 //full version without binding
@@ -25,4 +26,4 @@ const mapDispatchToProps = dispatch=>bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WelcomePage);
+)(ProfileEdit);

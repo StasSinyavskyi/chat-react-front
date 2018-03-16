@@ -1,7 +1,8 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {signup, login} from '../actions';
-import WelcomePage from '../components/welcome-page'
+import {logout} from '../actions';
+import ChatMenu from '../components/chat-menu';
+import {editProfile,toProfile, toChat} from '../actions';
 
 const mapStateToProps = state =>({
   isUserAuthentificated: state.auth.isUserAuthentificated,
@@ -11,8 +12,7 @@ const mapStateToProps = state =>({
 
 //shortversion  with binding
 const mapDispatchToProps = dispatch=>bindActionCreators({
-  signup,
-  login,
+  logout,editProfile,toProfile,toChat,
 },dispatch)
 
 //full version without binding
@@ -25,4 +25,4 @@ const mapDispatchToProps = dispatch=>bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WelcomePage);
+)(ChatMenu);

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import { withStyles } from 'material-ui/styles';
 
-import { chats, messages } from '../mock-data';
+import {  messages } from '../mock-data';
 
 import SidebarWrap from './sidebar-wrap';
 import Chatheader from './chat-header';
@@ -17,32 +17,32 @@ const styles = theme => ({
     height: '100%',
     backgroundColor: theme.palette.background.default,
   },
-  
-  
-  
+
 })
-
-
-
 
 
 class ChatPage extends Component {
 
- 
+ componentDidMount(){
+   const {fetchAllChats, fetchMyChats} =this.props;
+
+   Promise.all([
+    fetchAllChats(),
+    fetchMyChats()
+   ])
+   }
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, ...rest} = this.props;
     
-
     return (
       <div className={classes.root}>
           
-        <Chatheader />
+        <Chatheader {...rest}  />
 
-       <SidebarWrap chats={chats} />
+       <SidebarWrap {...rest} />
 
-        <Chat messages={messages} />
+        <Chat {...rest} />
         
       </div>
     );

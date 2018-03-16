@@ -7,8 +7,9 @@ import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
 
-import Message from './message';
+import ChatMessages from './chat-messages';
 import MessageInput from './message-input';
+import { joinChat } from '../actions';
 
 const Styles = theme =>({
   chatLayout: {
@@ -23,24 +24,7 @@ const Styles = theme =>({
       marginTop: 64,
     },
   },
-  messagesWrapper: {
-    overflowY : 'scroll',
-    height: '100%',
-    width: '100%',
-    paddingTop: theme.spacing.unit * 3,
-    paddingBottom: '120px',
-  },
-  messageInputWrapper: {
-    position: 'fixed',
-    left: 'auto',
-    right: 0,
-    bottom: 0,
-    width: `calc(100% - 320px)`,
-    padding: theme.spacing.unit * 3,
-  },
-  messageInput: {
-    padding: theme.spacing.unit * 2,
-  },
+  
   
 });
 
@@ -67,16 +51,15 @@ class Chat extends React.Component {
     }
   }
   render() {
-    const {classes, messages} = this.props;
+    const {classes, messages,activeUser,activeChat, sendMessage,joinChat} = this.props;
     return( 
       <main className={classes.chatLayout}>
-          <div className={classes.messagesWrapper} ref="messageswrapper">
-            {messages && messages.map((message, index) => (
-              <Message key={index} {...message} />
-              )) 
-            }          
-          </div>
-          <MessageInput />
+          <ChatMessages messages={messages} activeUser={activeUser}/>
+          <MessageInput 
+            sendMessage={(content)=>sendMessage(activeChat._id,content)}
+            onJoinButtonClick={joinChat}
+            activeUser={activeUser}
+          />
       </main>   
 );
 }}
