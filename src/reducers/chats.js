@@ -79,12 +79,12 @@ const byIds=(state=initialState.byIds, action)=>{
           [chat._id]: chat,
         }),{})
       }
+    case types.JOIN_CHAT_SECCESS:
+    case types.LIVE_CHAT_SECCESS:  
     case types.CREATE_CHAT_SECCESS:
       return{...state,[getChatId(action.payload.chat)]:action.payload.chat,}
-      case types.JOIN_CHAT_SECCESS:
-      case types.LIVE_CHAT_SECCESS:
-        return state;
-      case types.DELETE_CHAT_SECCESS:
+     
+    case types.DELETE_CHAT_SECCESS:
         const newState ={...state};
         delete newState[getChatId(action.payload.chat)];
         return newState;    
@@ -104,5 +104,6 @@ export default combineReducers({
 
 //selectors They hepl to get some data from state
 export const getChatId = (chat) => chat._id;
-export const getById = (chats, id) =>chats[id];
+//export const getById = (chats, id) =>chats[id];
+export const getById = (state, id) => state.byIds[id];
 export const getByIds = (state,ids) =>ids.map(id=>state.byIds[id]);

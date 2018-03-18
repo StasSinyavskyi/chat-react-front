@@ -52,13 +52,13 @@ const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat})=>(
         className={classes.navIconHide}
         > 
         </IconButton>
-        {console.log('act chat ',activeChat)}
+        {console.log('act chat in header ',activeChat)}
         {activeChat ? (
           <React.Fragment>
-            <Avatar colorFrom={activeChat._id}>
+            <Avatar textforcolorgen={activeChat.title}>
               {activeChat.title}
             </Avatar> 
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography variant="title" color="inherit" noWrap className={classes.appBarTitle}>
               {activeChat.title} 
               <ChatActionMenu 
                 activeUser={activeUser}
@@ -68,7 +68,7 @@ const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat})=>(
             </Typography>
           </React.Fragment>
           ):(
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography variant="title" color="inherit" noWrap className={classes.appBarTitle}>
               {ChatSettings.title}
               
             </Typography>

@@ -2,9 +2,9 @@ import {combineReducers} from 'redux';
 import auth from './auth';
 import chats from './chats';
 import services from './services';
+import messages from './messages';
 
-
-export default combineReducers({auth,chats,services});
+export default combineReducers({auth,chats,services,messages});
 
 
 //selectors not connectet to any other group of reducers  (Independent)

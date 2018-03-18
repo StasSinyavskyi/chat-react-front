@@ -10,7 +10,7 @@ export default function auth (state=initialState, action){
     case types.SEND_MESSAGE_SECCESS:
       return [...state, action.payload.message];
     case typesChats.FETCH_CHAT_SECCESS:
-      return action.payload.chat.mesages;
+      return action.payload.chat.messages;
 
     default:
       return state;

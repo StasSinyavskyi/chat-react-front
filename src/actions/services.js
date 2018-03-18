@@ -72,7 +72,7 @@ export function chatApi(apiCommand,par1=null,par2=null,par3=null,par4=null,par5=
       //add authorization
       headers['Authorization']='Bearer '+par1;
     
-      call=fetch(MainUrl+apiCommand+'/'+par2, {
+      call=fetch(MainUrl+'chats/'+par2, {
         method: "GET", //we can skip it because GET is default method     
         headers,
       })
@@ -106,7 +106,7 @@ export function chatApi(apiCommand,par1=null,par2=null,par3=null,par4=null,par5=
       case 'chatlive':
       //add authorization
       headers['Authorization']='Bearer '+par1;
-      call= fetch(MainUrl+'chats/'+par2+'/live', {
+      call= fetch(MainUrl+'chats/'+par2+'/leave', {
       method: "GET",
       headers,
       })

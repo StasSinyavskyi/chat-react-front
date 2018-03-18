@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles';
 const Styles = theme =>({
  
   button: {
-    display:'block',
+    //display:'block',
   },
 });
 
@@ -22,7 +22,10 @@ class ChatActionMenu extends React.Component {
     this.setState({ anchorEl1: event.currentTarget });
   };
 
-  
+  handleClose = () => {
+    this.setState({ anchorEl1: null });
+  };
+
 
   
   handleLiveChat = (event) => {
@@ -61,10 +64,10 @@ class ChatActionMenu extends React.Component {
         >
           {activeUser.isChatMember ? (
             <MenuItem onClick={this.handleLiveChat}>Live chat</MenuItem>
-          ):(<nop/> )}
+          ):(<div/> )}
           {activeUser.isCreator ? (
             <MenuItem onClick={this.handleDeleteChat}>Delete chat</MenuItem>
-          ):(<nop/> )}
+          ):(<div/> )}
           
         </Menu>
       </div>

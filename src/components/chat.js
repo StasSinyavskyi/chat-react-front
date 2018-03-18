@@ -52,13 +52,15 @@ class Chat extends React.Component {
   }
   render() {
     const {classes, messages,activeUser,activeChat, sendMessage,joinChat} = this.props;
+    console.log('activeUser 1 ', activeUser);
     return( 
       <main className={classes.chatLayout}>
-          <ChatMessages messages={messages} activeUser={activeUser}/>
+          <ChatMessages messages={messages} activeUser={activeUser} activeChat={activeChat}/>
           <MessageInput 
             sendMessage={(content)=>sendMessage(activeChat._id,content)}
-            onJoinButtonClick={joinChat}
+            onJoinButtonClick={() => joinChat(activeChat._id)}
             activeUser={activeUser}
+            showJoinButton={!activeUser.isChatMember}
           />
       </main>   
 );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 //import Switch from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import {Provider} from 'react-redux';
+//import {Provider} from 'react-redux';
 //import { chats, messages } from '../mock-data';
 
 import PrivateRoute from '../containers/private-route';
@@ -28,14 +28,14 @@ const styles = theme => ({
   
 })
 
-const store = configureStore();
+
 
 const App = ()=>(
-  <Provider store={store}>
+  
     <Router history={history}>
       <React.Fragment>
         <Switch>
-        <PrivateRoute path="/chat/:chatId?" component={ChatPage} />
+          <PrivateRoute path="/chat/:chatId?" component={ChatPage} />
           <PrivateRoute path='/profile' component={Profile} />
           <Route path='/(welcome)?' component={WelcomePage} />
           
@@ -43,7 +43,7 @@ const App = ()=>(
         </Switch>
       </React.Fragment>
     </Router>
-  </Provider>
+  
 )
 
 

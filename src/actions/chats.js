@@ -48,11 +48,12 @@ export function fetchChat(chatId){
 
     return chatApi('chatsid',token,chatId)
     .then(data=>{
+     // console.log('data return from serv',data);
       dispatch({
         type:types.FETCH_CHAT_SECCESS,
         payload: data,
       });
-
+      
       return data;
     })
     .catch(reason=>dispatch({
@@ -64,8 +65,8 @@ export function fetchChat(chatId){
 
 export function setActiveChat(chatId){
   return (dispatch)=>{
-    return dispatch(fetchChat(chatId))
-    .then(data=>{
+    dispatch(fetchChat(chatId))
+    .then((data)=>{
       if (!data){
         dispatch(redirectto('/chat'));
 
@@ -73,7 +74,7 @@ export function setActiveChat(chatId){
           type:types.UNSET_ACTIVE_CHAT,
         })
       }
-
+     // console.log('data ',data);
       dispatch({
         type:types.SET_ACTIVE_CHAT,
         payload: data,
@@ -122,17 +123,18 @@ export function joinChat(chatId){
     })
 
     return chatApi('chatjoin',token,chatId)
-    .then(chat=>{
+    .then(data=>{
 
-      
+      console.log('chat1',data);
       dispatch({
         type:types.JOIN_CHAT_SECCESS,
-        payload: chat,
+        payload: data,
       });
+      console.log('chat2',data);
+      //dispatch(fetchAllChats());
+      //dispatch(redirectto(`/chat/${data.chat._id}`));
 
-      dispatch(redirectto(`/chat/${chat._id}`));
-
-      return chat;
+      return data;
     })
     .catch(reason=>dispatch({
       type:types.JOIN_CHAT_FAILURE,
@@ -194,7 +196,8 @@ export function liveChat(chatId){
         type:types.UNSET_ACTIVE_CHAT,
         
       });
-      //dispatch(redirectto(`/chat/${chat._id}`));
+      //dispatch(fetchAllChats());
+      dispatch(redirectto(`/chat/${data.chat._id}`));
 
       return data;
     })

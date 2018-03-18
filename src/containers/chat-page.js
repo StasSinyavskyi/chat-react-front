@@ -10,8 +10,19 @@ import {bindActionCreators} from 'redux';
 
 const mapStateToProps = state =>{
   //use selectors
+  const chatId=null;
+  try {
+    const { match: { params: {chatId} } } = this.props;
+  }
+  catch (e){
+    const chatId=null;
+  }
+  //console.log ('chatId ',chatId);
   const activeChat = fromChats.getById(state.chats, state.chats.activeId);
-
+  
+ //console.log ('chats ',state.chats);
+ //console.log ('activeId ',state.chats.activeId);
+ //console.log ('activeChat ',activeChat);
   //chats: fromChats.getByIds(state.chats,state.chats.allIds), 
   return {
     isAuthentificated: state.auth.isUserAuthentificated,
@@ -27,6 +38,7 @@ const mapStateToProps = state =>{
       isChatMember:fromState.checkIsChatMember(state,activeChat),
     },
     messages: state.messages,
+    //activeChat: activeChat,
   };
 
 };

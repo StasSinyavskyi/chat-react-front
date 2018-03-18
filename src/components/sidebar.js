@@ -98,7 +98,7 @@ class Sidebar extends React.Component {
                 <Avatar textforcolorgen={chat.title}>
                   {chat.title}
                 </Avatar>
-                <ListItemText primary={chat.title} secondary={moment(chat.crateAt).fromNow()}/>
+                <ListItemText primary={chat.title} secondary={moment(chat.createdAt).fromNow()}/>
               </ListItem>
             ))
           ):(
