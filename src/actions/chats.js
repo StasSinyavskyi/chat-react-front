@@ -44,6 +44,7 @@ export function fetchChat(chatId){
     const {token}=getState().auth;
     dispatch({
       type: types.FETCH_CHAT_REQUEST,
+      payload:chatId,
     })
 
     return chatApi('chatsid',token,chatId)
@@ -93,19 +94,19 @@ export function createChat(chatTitle){
     })
 
     return chatApi('chatadd',token,chatTitle)
-    .then(chat=>{
+    .then(data=>{
 
       //fetchAllChats();
       //fetchMyChats();
       
       dispatch({
         type:types.CREATE_CHAT_SECCESS,
-        payload: chat,
+        payload: data,
       });
 
-      dispatch(redirectto(`/chat/${chat._id}`));
+      dispatch(redirectto(`/chat/${data.chat._id}`));
 
-      return chat;
+      return data;
     })
     .catch(reason=>dispatch({
       type:types.CREATE_CHAT_FAILURE,

@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
-import * as types from '../constants/chats';
+import * as types from '../constants';//all types
+//import { RECEIVE_NEW_CHAT } from '../constants';
 
 //const token = localStorage.getItem('token');
 
@@ -21,7 +22,8 @@ const activeId=(state=initialState.activeId, action)=>{
     case types.UNSET_ACTIVE_CHAT:
     case types.DELETE_CHAT_SECCESS:
       return null; 
-    
+    case types.RECIEVE_DELETED_CHAT:
+      return state===getChatId(action.payload.chat) ? null : state;
 
     default:
       return state;
@@ -35,11 +37,14 @@ const allIds=(state=initialState.allIds, action)=>{
     case types.FETCH_ALL_CHATS_SECCESS:
       return action.payload.chats.map(getChatId);
     case types.CREATE_CHAT_SECCESS:
+    case types.RECIEVE_NEW_CHAT:
       return [...state, getChatId(action.payload.chat)];//add to array new chat id  
+    
     case types.JOIN_CHAT_SECCESS:
     case types.LIVE_CHAT_SECCESS:
       return state;  
     case types.DELETE_CHAT_SECCESS:
+    case types.RECIEVE_DELETED_CHAT:  
       return state.filter(chatId =>chatId !== getChatId(action.payload.chat));
     default:
       return state;
@@ -54,6 +59,7 @@ const myIds=(state=initialState.myIds, action)=>{
       return action.payload.chats.map(getChatId);
       case types.LIVE_CHAT_SECCESS:
       case types.DELETE_CHAT_SECCESS:
+      case types.RECIEVE_DELETED_CHAT:
         return state.filter(chatId =>chatId !== getChatId(action.payload.chat));
       case types.CREATE_CHAT_SECCESS:  
       case types.JOIN_CHAT_SECCESS: 
@@ -82,8 +88,9 @@ const byIds=(state=initialState.byIds, action)=>{
     case types.JOIN_CHAT_SECCESS:
     case types.LIVE_CHAT_SECCESS:  
     case types.CREATE_CHAT_SECCESS:
+    case types.RECIEVE_NEW_CHAT:
       return{...state,[getChatId(action.payload.chat)]:action.payload.chat,}
-     
+    case types.RECIEVE_DELETED_CHAT: 
     case types.DELETE_CHAT_SECCESS:
         const newState ={...state};
         delete newState[getChatId(action.payload.chat)];

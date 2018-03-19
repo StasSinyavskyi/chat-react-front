@@ -24,34 +24,44 @@ const styles = theme => ({
 class ChatPage extends Component {
 
  componentDidMount(){
-   const {fetchAllChats, fetchMyChats,setActiveChat} =this.props;
+   const {fetchAllChats, fetchMyChats,setActiveChat,match,socketsConnect,mountchat} =this.props;
 
    Promise.all([
     fetchAllChats(),
     fetchMyChats()
    ])
+   .then(()=>{
+      socketsConnect();
+   })
+   .then(()=>{
+     const {chatId}=match.params;
+     //if we pass chatId then fetch message from chat
+     if (chatId){
+       setActiveChat(chatId);
+       mountchat(chatId)
+     }
+   })
 
-   //const { chatId } = match.params;
-        // If we pass a chatId, then fetch messages from chat
-        // if (chatId) {
-        //   setActiveChat(chatId);
-        //   //mountChat(chatId);
-        // }
+  
    }
 
 
    componentWillReceiveProps(nextProps) {
     const {
-      match: { params }, setActiveChat, //unmountChat, mountChat,
-    } = this.props;
+      match: { params }, setActiveChat, unmountchat, mountchat,chats:{active}} = this.props;
     const { params: nextParams } = nextProps.match;
-
-    // If we change route, then fetch messages from chat by chatID
+    //console.log('activeChat ',active);
+    // If we change route (room), then fetch messages from chat by chatID
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
+      
+      
+      //console.log('params.chatId ',params.chatId);
       //console.log('nextParams.chatId ',nextParams.chatId);
+      //console.log('activeChat 2 ',active);
       setActiveChat(nextParams.chatId);
-     // unmountChat(params.chatId);
-     // mountChat(nextParams.chatId);
+      //change room from old to new. We work ONLY with one rum at a moment
+      unmountchat(params.chatId);
+      mountchat(nextParams.chatId);
     }
   }
 

@@ -1,5 +1,5 @@
-import * as types from '../constants/messages';
-import * as typesChats from '../constants/chats';
+import * as types from '../constants'; //impot all types
+//import * as typesChats from '../constants/chats';
 
 //default state
 const initialState =[];
@@ -7,9 +7,9 @@ const initialState =[];
 export default function auth (state=initialState, action){
   
   switch (action.type){
-    case types.SEND_MESSAGE_SECCESS:
+    case types.RECIEVE_MESSAGE:
       return [...state, action.payload.message];
-    case typesChats.FETCH_CHAT_SECCESS:
+    case types.FETCH_CHAT_SECCESS:
       return action.payload.chat.messages;
 
     default:

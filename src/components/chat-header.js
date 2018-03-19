@@ -52,7 +52,6 @@ const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat})=>(
         className={classes.navIconHide}
         > 
         </IconButton>
-        {console.log('act chat in header ',activeChat)}
         {activeChat ? (
           <React.Fragment>
             <Avatar textforcolorgen={activeChat.title}>

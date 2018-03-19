@@ -93,7 +93,7 @@ class Sidebar extends React.Component {
               button 
               component={Link}
               to={`/chat/${chat._id}`}
-              classname={activeChat && activeChat._id===chat._id ? classes.activeChat :''}
+              className={activeChat && activeChat._id===chat._id ? classes.activeChat :''}
               >
                 <Avatar textforcolorgen={chat.title}>
                   {chat.title}
@@ -102,7 +102,7 @@ class Sidebar extends React.Component {
               </ListItem>
             ))
           ):(
-            <Typography variant="subheading" classname={classes.noChats}>
+            <Typography variant="subheading" className={classes.noChats}>
               no chats yet
             </Typography>  
           )

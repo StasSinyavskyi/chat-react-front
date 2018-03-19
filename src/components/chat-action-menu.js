@@ -14,16 +14,16 @@ const Styles = theme =>({
 
 class ChatActionMenu extends React.Component {
   state = {
-    anchorEl1: null,
+    anchorEl: null,
   };
 
   
   handleClick = event => {
-    this.setState({ anchorEl1: event.currentTarget });
+    this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
-    this.setState({ anchorEl1: null });
+    this.setState({ anchorEl: null });
   };
 
 
@@ -42,14 +42,14 @@ class ChatActionMenu extends React.Component {
   }
 
   render() {
-    const { anchorEl1 } = this.state;
+    const { anchorEl } = this.state;
 
     const {classes,activeUser,}=  this.props;
 
     return (
       <div>
         <Button
-          aria-owns={anchorEl1 ? 'simple-menu' : null}
+          aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}   
           className={classes.button}      
@@ -58,8 +58,8 @@ class ChatActionMenu extends React.Component {
         </Button>
         <Menu
           id="simple-menu"
-          anchorEl1={anchorEl1}
-          open={Boolean(anchorEl1)}
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
           {activeUser.isChatMember ? (

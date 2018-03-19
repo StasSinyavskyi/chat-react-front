@@ -52,18 +52,22 @@ class Chat extends React.Component {
   }
   render() {
     const {classes, messages,activeUser,activeChat, sendMessage,joinChat} = this.props;
-    console.log('activeUser 1 ', activeUser);
+    //console.log('activeUser 1 ', activeUser);
     return( 
       <main className={classes.chatLayout}>
           <ChatMessages messages={messages} activeUser={activeUser} activeChat={activeChat}/>
-          <MessageInput 
-            sendMessage={(content)=>sendMessage(activeChat._id,content)}
+          {activeChat && <MessageInput 
+            sendMessage={sendMessage}
             onJoinButtonClick={() => joinChat(activeChat._id)}
             activeUser={activeUser}
             showJoinButton={!activeUser.isChatMember}
-          />
+          />}
       </main>   
 );
 }}
 
 export default withStyles(Styles)(Chat);
+
+// 60 line was changed because we use sockents for sending messages
+//old 60 line below
+//sendMessage={(content)=>sendMessage(activeChat._id,content)}
