@@ -12,6 +12,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
 import Chatheader from './chat-header';
+import ErrorMessage from './error-message';
 
 //import ChatSettings from '../chat-settings';
 
@@ -69,11 +70,7 @@ class ProfileEdit extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
     const { username, firstname, lastname } = this.state;
-
-    //console.log('Login:', username.value, password.value);
-
     this.props.editProfile(username.value,firstname.value,lastname.value,);
     
     
@@ -98,7 +95,7 @@ class ProfileEdit extends Component {
 
   
   render () {
-    const {user,classes,isUserAuthentificated}=this.props;
+    const {user,classes,isUserAuthentificated,error,clearErrors}=this.props;
     const { username,firstname,lastname}=this.state;
    
 
@@ -167,6 +164,7 @@ class ProfileEdit extends Component {
             </div>
           </Paper>
         </Grid>
+        <ErrorMessage errors={error} clearErrors={clearErrors}/>
       </React.Fragment>  
     )
   }

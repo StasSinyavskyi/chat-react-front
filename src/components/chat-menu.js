@@ -49,7 +49,7 @@ class ChatMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
 
-    const {classes}=  this.props;
+    const {classes,isConnected}=  this.props;
 
     return (
       <div>
@@ -57,7 +57,8 @@ class ChatMenu extends React.Component {
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}   
-          className={classes.button}      
+          className={classes.button}   
+          disabled={!isConnected}   
         >
           Menu
         </Button>

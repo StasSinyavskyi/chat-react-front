@@ -6,6 +6,7 @@ import {editProfile,toProfile, toChat} from '../actions';
 
 const mapStateToProps = state =>({
   isUserAuthentificated: state.auth.isUserAuthentificated,
+  isConnected:state.services.isConnected,
 });
 
 //short and full version are equal

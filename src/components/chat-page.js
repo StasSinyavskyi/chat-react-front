@@ -8,6 +8,7 @@ import {  messages } from '../mock-data';
 import SidebarWrap from './sidebar-wrap';
 import Chatheader from './chat-header';
 import Chat from './chat';
+import ErrorMessage from './error-message';
  
 const styles = theme => ({
   root: {
@@ -68,8 +69,8 @@ class ChatPage extends Component {
 
 
   render() {
-    const { classes, ...rest} = this.props;
-    const {chats, chats:{active}}=this.props;
+    const { classes, error, ...rest} = this.props;
+    const { chats:{active}}=this.props;
     //const {chatId} =this.state;
     //console.log(' chats ',chats);
     //console.log(' chats  activeChat',active);
@@ -78,9 +79,11 @@ class ChatPage extends Component {
           
         <Chatheader activeChat={active} {...rest}  />
 
-       <SidebarWrap activeChat={active} {...rest} />
+        <SidebarWrap activeChat={active} {...rest} />
 
         <Chat activeChat={active} {...rest} />
+
+        <ErrorMessage errors={error} {...rest}/>
         
       </div>
     );

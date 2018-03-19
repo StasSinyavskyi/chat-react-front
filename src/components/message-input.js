@@ -11,7 +11,7 @@ const styles = theme => ({
     left: 'auto',
     right: 0,
     bottom: 0,
-    width: 'calc(100% - 320px)',
+    width: 'calc(100% - 350px)',
     padding: theme.spacing.unit * 3,
   },
   messageInput: {

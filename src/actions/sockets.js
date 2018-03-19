@@ -16,8 +16,14 @@ export function missingSocketConnection () {
 export function socketsConnect() {
   return (dispatch, getState)=>{
     const {token}=getState().auth;
+    const {isFetching} = getState().services;
+    if (isFetching.sockets) {
+      return Promise.resolve();
+    }
+    
     dispatch({
       type:types.SOCKETS_CONNECTION_REQUEST,
+      payload:new Error('Missing socet connection!'),
     })
 
     socket =SocketIOClient('ws://localhost:8000', {
@@ -35,16 +41,18 @@ export function socketsConnect() {
     })
 
     //when error
-    socket.on('error',()=>{
+    socket.on('error',(error)=>{
       dispatch({
         type:types.SOCKETS_CONNECTION_FAILURE,
+        payload: new Error(`Connection ${error}`)
       })
     })
 
     //when connect error
-    socket.on('connect-error',()=>{
+    socket.on('connect_error',()=>{
       dispatch({
         type:types.SOCKETS_CONNECTION_FAILURE,
+        payload:new Error('We have lost connection'),
       })
     })
 

@@ -15,13 +15,15 @@ import { liveChat } from '../actions';
 const Styles = theme =>({
   appBar: {
     position: 'fixed',
-    
+    display: 'flex',
+    'flex-direction':'row',
+    'justify-content':'space-between',
+    'align-items':'center',
     //width: `calc(100% - 320px)`,
     marginLeft: 320,
     backgroundColor:'green',
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${320}px)`,
-    },
+    width: `calc(100% - ${320}px)`,
+    
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -30,41 +32,46 @@ const Styles = theme =>({
   },
   appToolBar:{
     display: 'flex',
-    'justify-content':'space-between',
+    //'justify-content':'space-between',
   },
   appBarTitle:{
-    flex:1,
+    //flex:1,
     marginLeft:theme.spacing.unit *2,
     marginRight:theme.spacing.unit *2,
     color:theme.palette.secondary.contrasText,
+  },
+  actionMenu:{
+    //flex:2,
+  },
+  chatHeaderMenu:{
+    display: 'flex',
+    //marginLeft: 'calc(100% - 50px)',
+    //border:'2px',
   }
 });
 
 
 
-const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat})=>(
+const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat,isConnected})=>(
   <AppBar color="primary" className={classes.appBar}>
     <Toolbar className={classes.appToolBar}>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        onClick={this.handleDrawerToggle}
-        className={classes.navIconHide}
-        > 
-        </IconButton>
+     
         {activeChat ? (
           <React.Fragment>
             <Avatar textforcolorgen={activeChat.title}>
               {activeChat.title}
             </Avatar> 
-            <Typography variant="title" color="inherit" noWrap className={classes.appBarTitle}>
+            <Typography variant="title" color="inherit" className={classes.appBarTitle}>
               {activeChat.title} 
-              <ChatActionMenu 
+                     
+            </Typography>
+            <ChatActionMenu 
+                disabled={!isConnected}
                 activeUser={activeUser}
                 onLiveClick={()=>liveChat(activeChat._id)}
                 onDeleteClick={()=>deleteChat(activeChat._id)}
-              />          
-            </Typography>
+                className={classes.actionMenu}
+              />   
           </React.Fragment>
           ):(
             <Typography variant="title" color="inherit" noWrap className={classes.appBarTitle}>
@@ -75,9 +82,9 @@ const Chatheader =({classes,activeChat,activeUser,liveChat,deleteChat})=>(
         }
 
       
-      <ChatHeaderMenu />
+      
     </Toolbar>
-    
+    <ChatHeaderMenu className={classes.chatHeaderMenu}/>
   </AppBar>   
 );
 

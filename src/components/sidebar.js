@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import Avatar from './avatar';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
-
+import Drawer from 'material-ui/Drawer';
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
 import Typography from 'material-ui/Typography';
@@ -20,6 +20,12 @@ import Typography from 'material-ui/Typography';
 import NewChatButton from './new-chat-button';
 
 const Styles = theme =>({
+  drawerPaper: {
+    //position: 'relative',
+    height: '100%',
+    width: 320,
+    
+  },
   drawerHeader: {
     ...theme.mixins.toolbar,
     paddingLeft: theme.spacing.unit * 3,
@@ -71,15 +77,21 @@ class Sidebar extends React.Component {
   };
 
   render () {
-    const {classes,chats, activeChat, createChat} =this.props;
+    const {classes,chats, activeChat, createChat,isConnected} =this.props;
     const {activeTab}=this.state;
     const chatsRender=this.filterChats(activeTab === 0 ? chats.my : chats.all)
     //console.log('chats ',chats.all, chats.all.length);
     return(
-//const Sidebar =({classes,chats, activeChat})=>(
-      <div>
+
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
         <div className={classes.drawerHeader}>
-          <TextField fullWidth margin="normal" placeholder="Search chats..." onChange={this.handleSearchChange}/>
+          <TextField fullWidth margin="normal" placeholder="Search chats..." onChange={this.handleSearchChange}
+          disabled={!isConnected}/>
         </div>
 
         <Divider />
@@ -94,6 +106,7 @@ class Sidebar extends React.Component {
               component={Link}
               to={`/chat/${chat._id}`}
               className={activeChat && activeChat._id===chat._id ? classes.activeChat :''}
+              disabled={!isConnected}
               >
                 <Avatar textforcolorgen={chat.title}>
                   {chat.title}
@@ -110,7 +123,7 @@ class Sidebar extends React.Component {
           }
         </List>
 
-        <NewChatButton  onClick={createChat} /> 
+        <NewChatButton  onClick={createChat} disabled={!isConnected}/> 
 
         
 
@@ -119,7 +132,7 @@ class Sidebar extends React.Component {
           <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
         </BottomNavigation>    
 
-      </div>
+      </Drawer>
 )}};
 
 export default withStyles(Styles)(Sidebar);

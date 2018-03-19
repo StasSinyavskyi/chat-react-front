@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import ChatPage from '../components/chat-page'
 import {fetchAllChats,fetchMyChats,setActiveChat,logout,createChat,deleteChat,liveChat,joinChat,editProfile,} from '../actions'
 import {sendMessage, mountchat, unmountchat, socketsConnect} from '../actions/sockets';
+import {clearErrors} from '../actions/services';
 import * as fromChats from '../reducers/chats';
 import * as fromState from '../reducers';
 //import {logout} from '../actions';
@@ -39,7 +40,8 @@ const mapStateToProps = state =>{
       isChatMember:fromState.checkIsChatMember(state,activeChat),
     },
     messages: state.messages,
-    
+    error:state.services.errors.chatErr,
+    isConnected: state.services.isConnected,
     //activeChat: activeChat,
   };
 
@@ -59,6 +61,7 @@ const mapDispatchToProps = dispatch=>bindActionCreators({
   mountchat, 
   unmountchat, 
   socketsConnect,
+  clearErrors,
 },dispatch)
 
 export default connect(

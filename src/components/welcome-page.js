@@ -14,6 +14,7 @@ import LoginForm from './login-form';
 import SignupForm from './signup-form';
 
 import ChatSettings from '../chat-settings';
+import ErrorMessage from './error-message';
 
 const styles =theme =>({
   paper: {
@@ -35,7 +36,7 @@ class WelcomePage extends Component {
   }
 
   render () {
-    const {classes, signup, login, isUserAuthentificated}=this.props;
+    const {classes, signup, login, isUserAuthentificated, error, clearErrors}=this.props;
     const {currentTab}=this.state;
 
     if (isUserAuthentificated){
@@ -68,6 +69,7 @@ class WelcomePage extends Component {
             </div>
           </Paper>
         </Grid>
+        <ErrorMessage errors={error} clearErrors={clearErrors}/>
       </React.Fragment>  
     )
   }

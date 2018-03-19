@@ -14,6 +14,13 @@ export function redirectto(to) {
   };
 }
 
+export function clearErrors(){
+  return (dispatch)=>{
+    dispatch({
+      type:types.CLEAR_ERROR,
+    })
+  }
+}
 
 export function chatApi(apiCommand,par1=null,par2=null,par3=null,par4=null,par5=null){
   //const {username,password,token} = rest;

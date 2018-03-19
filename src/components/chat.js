@@ -12,46 +12,41 @@ import MessageInput from './message-input';
 import { joinChat } from '../actions';
 
 const Styles = theme =>({
+  
   chatLayout: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: '64px',
     height: '100%',
-    //overflow: 'hidden',
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
+    width: '100%',
+    overflow: 'hidden',
+    //background:'red',
   },
-  
-  
 });
 
 
 
 class Chat extends React.Component {
-  componentDidMount(){
-    this.scrolDown();
-  }
+  // componentDidMount(){
+  //   this.scrolDown();
+  // }
 
-  componentDidUpdate(){
-    this.scrolDown();
-  }
- // state = {
-  //  mobileOpen: false,
- // }; 
-   
-  scrolDown(){
-    const messagesWrapper=this.refs.messageswrapper;
-    //console.log(messagesWrapper.scrollHeight);
-    if (messagesWrapper){
-      messagesWrapper.scrollTop=messagesWrapper.scrollHeight;
-      
-    }
-  }
+  // componentDidUpdate(){
+  //   this.scrolDown();
+  // }
+    
+  // scrolDown(){
+  //   const messagesWrapper=this.refs.messageswrapper;
+  //   //console.log(messagesWrapper.scrollHeight);
+  //   if (messagesWrapper){
+  //     messagesWrapper.scrollTop=messagesWrapper.scrollHeight;   
+  //   }
+  // }
+
+
   render() {
-    const {classes, messages,activeUser,activeChat, sendMessage,joinChat} = this.props;
+    const {classes, messages,activeUser,activeChat, sendMessage,joinChat,isConnected} = this.props;
     //console.log('activeUser 1 ', activeUser);
     return( 
       <main className={classes.chatLayout}>
@@ -61,6 +56,7 @@ class Chat extends React.Component {
             onJoinButtonClick={() => joinChat(activeChat._id)}
             activeUser={activeUser}
             showJoinButton={!activeUser.isChatMember}
+            disabled={!isConnected}
           />}
       </main>   
 );

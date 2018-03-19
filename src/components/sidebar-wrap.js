@@ -7,27 +7,16 @@ import Drawer from 'material-ui/Drawer';
 import Sidebar from './sidebar';
 
 const Styles = theme =>({
-  drawerPaper: {
-    //position: 'relative',
-    //height: '100%',
-    //width: 320,
-    //overflow: 'scroll',
-    [theme.breakpoints.up('md')]: {
-      width: 320,
-      position: 'relative',
-      height: '100%',
-      //backgroundColor: 'red',
-    },
-  },
+  
   
 });
 
 
 
-const SidebarWrap =({classes, chats, activeChats,createChat})=>(
+const SidebarWrap =({classes, chats, activeChats,createChat,isConnected})=>(
   <div>
     <Drawer variant="permanent" open classes={{paper: classes.drawerPaper}}>
-      <Sidebar chats={chats} activeChats={activeChats} createChat={createChat}/>
+      <Sidebar chats={chats} activeChats={activeChats} createChat={createChat} isConnected={isConnected}/>
 
     </Drawer>
     

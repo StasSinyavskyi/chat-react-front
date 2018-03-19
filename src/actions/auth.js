@@ -6,7 +6,12 @@ import {chatApi,redirectto} from './services';
 
 //action creator
 export function login(username, password){
-  return (dispatch)=>{
+  return (dispatch,getState)=>{
+    const {isFetching} = getState().services;
+    if (isFetching.login) {
+      return Promise.resolve();
+    }
+
     dispatch({
       type: types.LOGIN_REQUEST,
     })
@@ -15,11 +20,16 @@ export function login(username, password){
    
       .then(json => 
         { 
-          if (!json.token) {throw console.error('Token is not provided');}
+          if (!json.token) {
+            //throw console.error('Token is not provided');
+            dispatch({type: types.LOGIN_FAILURE, payload: json,})
+          }else{
+            localStorage.setItem('token',json.token);
   
-          localStorage.setItem('token',json.token);
+            dispatch({type: types.LOGIN_SUCCESS, payload: json,})}
+          }
   
-          dispatch({type: types.LOGIN_SUCCESS, payload: json,})}
+
       )
       .catch(reason => dispatch({type: types.LOGIN_FAILURE, payload: reason,}));
 
@@ -28,7 +38,12 @@ export function login(username, password){
 
 //action creator
 export function logout(){
-  return (dispatch)=>{
+  return (dispatch,getState)=>{
+    const {isFetching} = getState().services;
+    if (isFetching.logout) {
+      return Promise.resolve();
+    }
+    
     dispatch({
       type: types.LOGOUT_REQUEST,
     });
@@ -66,7 +81,12 @@ export function toChat(){
 
 //action creator
 export function signup(username, password){
-  return (dispatch)=>{
+  return (dispatch,getState)=>{
+    const {isFetching} = getState().services;
+    if (isFetching.signup) {
+      return Promise.resolve();
+    }
+    
     dispatch({
       type: types.SIGNUP_REQUEST
     })
@@ -74,11 +94,15 @@ export function signup(username, password){
     return chatApi('signup',username,password)
   
       .then(json =>{ 
-        if (!json.token){throw console.error('Token is not provided');}
+        if (!json.token) {
+          //throw console.error('Token is not provided');
+          dispatch({type: types.SIGNUP_FAILURE, payload: json,});
+        }else{
+          localStorage.setItem('token',json.token);
+          dispatch({type: types.SIGNUP_SUCCESS, payload: json,})}
+        }
 
-        localStorage.setItem('token',json.token);
-
-        dispatch({type: types.SIGNUP_SUCCESS, payload: json,})}
+        
       )
       .catch(reason => dispatch({type: types.SIGNUP_FAILURE, payload: reason,}));
   }
@@ -89,6 +113,11 @@ export function receiveAuth(){
   //thunk
   return (dispatch,getState)=>{
     const {token}=getState().auth;//auth is the name of reducer
+    const {isFetching} = getState().services;
+    if (isFetching.receiveAuth) {
+      return Promise.resolve();
+    }
+    
 
     if (!token){
      // console.log("token not exist");
@@ -113,6 +142,11 @@ export function receiveAuth(){
 export function editProfile(username,firstname,lastname,city){
   return (dispatch,getState)=>{
     const {token}=getState().auth;
+    const {isFetching} = getState().services;
+    if (isFetching.editProfile) {
+      return Promise.resolve();
+    }
+    
 
     if (!token){
       // console.log("token not exist");
@@ -128,10 +162,13 @@ export function editProfile(username,firstname,lastname,city){
     return chatApi('userupdate',token,username,firstname,lastname)
     
       .then(json =>{ 
-        if (!json.user){throw console.error('User is not returned');}
-        dispatch({type: types.EDIT_PROFILE_SUCCESS, payload: json,});
-        dispatch(redirectto('/chat'));
-        console.log('tt');
+        if (!json.user){dispatch({type: types.EDIT_PROFILE_FAILURE, payload: json,});}
+        else{
+          dispatch({type: types.EDIT_PROFILE_SUCCESS, payload: json,});
+          dispatch(redirectto('/chat'));
+          //console.log('tt');
+        }
+        
       }
       )
       .catch(reason => dispatch({type: types.EDIT_PROFILE_FAILURE, payload: reason,}));

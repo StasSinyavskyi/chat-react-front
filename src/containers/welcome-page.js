@@ -1,10 +1,12 @@
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {signup, login} from '../actions';
+import {signup, login,clearErrors} from '../actions';
+//import {clearErrors} from '../services';
 import WelcomePage from '../components/welcome-page'
 
 const mapStateToProps = state =>({
   isUserAuthentificated: state.auth.isUserAuthentificated,
+  error:state.services.errors.authErr,
 });
 
 //short and full version are equal
@@ -13,6 +15,7 @@ const mapStateToProps = state =>({
 const mapDispatchToProps = dispatch=>bindActionCreators({
   signup,
   login,
+  clearErrors,
 },dispatch)
 
 //full version without binding

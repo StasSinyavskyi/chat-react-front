@@ -7,7 +7,8 @@ import { withStyles } from 'material-ui/styles';
 const Styles = theme =>({
  
   button: {
-    //display:'block',
+    display:'flex',
+    
   },
 });
 
@@ -44,7 +45,7 @@ class ChatActionMenu extends React.Component {
   render() {
     const { anchorEl } = this.state;
 
-    const {classes,activeUser,}=  this.props;
+    const {classes,activeUser,disabled}=  this.props;
 
     return (
       <div>
@@ -52,9 +53,10 @@ class ChatActionMenu extends React.Component {
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}   
-          className={classes.button}      
+          className={classes.button} 
+          disabled={disabled}      
         >
-          Menu
+          Action
         </Button>
         <Menu
           id="simple-menu"
