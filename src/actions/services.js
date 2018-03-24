@@ -1,6 +1,6 @@
 import * as types from '../constants/services';
 import history from '../utils/history';
-
+import config from '../config';
 
 // THUNK
 export function redirectto(to) {
@@ -27,7 +27,7 @@ export function chatApi(apiCommand, par1 = null,
   par2 = null, par3 = null, par4 = null,
 ) {
   // const {username,password,token} = rest;
-  const MainUrl = 'http://localhost:8000/v1/';
+  const MainUrl = `${config.API_URI}/`;
   const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',

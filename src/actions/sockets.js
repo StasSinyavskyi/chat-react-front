@@ -2,6 +2,7 @@
 import SocketIOClient from 'socket.io-client';
 import * as types from '../constants/sockets';
 import { redirectto } from './services';
+import config from '../config';
 
 let socket = null;
 
@@ -25,7 +26,7 @@ export function socketsConnect() {
       payload: new Error('Missing socet connection!'),
     });
 
-    socket = SocketIOClient('ws://localhost:8000', {
+    socket = SocketIOClient(config.SOCKETS_URI, {
       query: { token },
     });
 
