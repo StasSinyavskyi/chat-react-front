@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -90,10 +91,24 @@ const Message = ({
   );
 };
 
+Message.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  content: PropTypes.string.isRequired,
+  sender: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+  }).isRequired,
+  activeUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  statusMessage: PropTypes.bool,
+};
 
-
- Message.defaultProps = {
-   statusMessage: false,
- };
+Message.defaultProps = {
+  statusMessage: false,
+};
 
 export default withStyles(styles)(Message);

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-
-import {Redirect} from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
-//import Toolbar from 'material-ui/Toolbar';
+// import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
@@ -14,11 +12,11 @@ import Button from 'material-ui/Button';
 import Chatheader from './chat-header';
 import ErrorMessage from './error-message';
 
-//import ChatSettings from '../chat-settings';
+// import ChatSettings from '../chat-settings';
 
-const styles =theme =>({
+const styles = theme => ({
   paper: {
-    marginTop: 64 + theme.spacing.unit * 3,
+    marginTop: 64 + (theme.spacing.unit * 3),
     width: 500,
   },
   tabContent: {
@@ -27,12 +25,32 @@ const styles =theme =>({
   submitButton: {
     marginTop: theme.spacing.unit * 2,
   },
-  profileTitle:{
+  profileTitle: {
     padding: theme.spacing.unit * 3,
   },
-})
+});
 
 class ProfileEdit extends Component {
+  static propTypes = {
+    recieveAuth: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    editProfile: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    error: PropTypes.instanceOf(Error),
+    clearErrors: PropTypes.func.isRequired,
+  }
+
+  static defaultProps={
+    error: null,
+  }
+
   state = {
     username: {
       value: '',
@@ -47,19 +65,25 @@ class ProfileEdit extends Component {
       isValid: true,
     },
   }
-  
-  handleInputChange = (event) => {
-    event.persist();
-    
-    const { name, value } = event.target;
-    console.log(name,value);
-    //console.log(name +" "+ value+" ");
-    this.setFormState(name,value);
-    
+
+  componentDidMount() {
+    const { recieveAuth } = this.props;
+
+    Promise.all([
+      recieveAuth(),
+
+    ]).then(() => {
+      const { user } = this.props;
+      if (user) {
+        this.setFormState('username', user.username);
+        this.setFormState('firstname', user.firstName);
+        this.setFormState('lastname', user.lastName);
+      }
+    });
   }
 
-  setFormState=(name,value)=>{
-    this.setState((prevState) => ({
+  setFormState=(name, value) => {
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
         value,
@@ -67,47 +91,38 @@ class ProfileEdit extends Component {
     }));
   }
 
+  handleInputChange = (event) => {
+    event.persist();
+
+    const { name, value } = event.target;
+    // console.log(name, value);
+    // console.log(name +" "+ value+" ");
+    this.setFormState(name, value);
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { username, firstname, lastname } = this.state;
-    this.props.editProfile(username.value,firstname.value,lastname.value,);
-    
-    
-  }
-  
-  componentDidMount(){
-    const {receiveAuth}=this.props;
-
-    Promise.all([
-      receiveAuth(),
-      
-     ]).then(()=>{
-      const {user}=this.props; 
-      if (user) {
-          this.setFormState('username',user.username);
-          this.setFormState('firstname',user.firstName);
-          this.setFormState('lastname',user.lastName);
-          
-      }
-     })
+    this.props.editProfile(username.value, firstname.value, lastname.value);
   }
 
-  
-  render () {
-    const {user,classes,isUserAuthentificated,error,clearErrors}=this.props;
-    const { username,firstname,lastname}=this.state;
-   
+
+  render() {
+    const {
+      classes, error, clearErrors,
+    } = this.props;
+    const { username, firstname, lastname } = this.state;
+
 
     return (
       <React.Fragment>
-         <Chatheader />
+        <Chatheader />
         <Grid container justify="center">
           <Paper className={classes.paper}>
             <AppBar position="static" color="default">
               <Typography variant="title" color="inherit" className={classes.profileTitle}>
                 Profile edit
-              </Typography>  
+              </Typography>
             </AppBar>
             <div className={classes.tabContent}>
               <form onSubmit={this.handleSubmit}>
@@ -125,7 +140,7 @@ class ProfileEdit extends Component {
                   error={!username.isValid}
                 />
                 <TextField
-                  
+
                   fullWidth
                   label="First name"
                   placeholder="Type your first name..."
@@ -138,7 +153,7 @@ class ProfileEdit extends Component {
                   error={!firstname.isValid}
                 />
                 <TextField
-                  
+
                   fullWidth
                   label="Last name"
                   placeholder="Type your last name..."
@@ -150,7 +165,7 @@ class ProfileEdit extends Component {
                   onChange={this.handleInputChange}
                   error={!lastname.isValid}
                 />
-                
+
                 <Button
                   fullWidth
                   variant="raised"
@@ -164,12 +179,10 @@ class ProfileEdit extends Component {
             </div>
           </Paper>
         </Grid>
-        <ErrorMessage errors={error} clearErrors={clearErrors}/>
-      </React.Fragment>  
-    )
+        <ErrorMessage errors={error} clearErrors={clearErrors} />
+      </React.Fragment>
+    );
   }
-
-  
 }
 
 

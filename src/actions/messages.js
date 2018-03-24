@@ -1,9 +1,11 @@
-import * as types from '../constants/messages';
+// commented because we use sockets and our message will send => return => show   by sockets
+// ---------------------------------------------------------------------------------------------
 
-import {chatApi, redirectto} from './services';
-import { fetchChat } from '.';
+// import * as types from '../constants/messages';
 
-//commented because we use sockets and our message will send => return => show   by sockets
+// import { chatApi, redirectto } from './services';
+// import { fetchChat } from '.';
+
 
 // export function sendMessage(chatId,message){
 //   return (dispatch,getState)=>{
@@ -16,7 +18,7 @@ import { fetchChat } from '.';
 //     return chatApi('sendmessage',token,chatId,message,false)
 //     .then(data=>{
 
-      
+
 //       dispatch({
 //         type:types.SEND_MESSAGE_SECCESS,
 //         payload: data,

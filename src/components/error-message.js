@@ -5,9 +5,13 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 
 class ErrorMessage extends React.Component {
-  
+  static propTypes = {
+    errors: PropTypes.instanceOf(Error),
+    clearErrors: PropTypes.func.isRequired,
+  };
+
   static defaultProps = {
-    error: null,
+    errors: null,
   };
 
 
@@ -23,9 +27,8 @@ class ErrorMessage extends React.Component {
 
   handleCloseSnackbar = () => {
     this.setState({ open: false });
-    
+
     this.props.clearErrors();
-    
   };
 
   render() {
@@ -59,5 +62,6 @@ class ErrorMessage extends React.Component {
     );
   }
 }
+
 
 export default ErrorMessage;

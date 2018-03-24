@@ -29,11 +29,11 @@ const styles = theme => ({
 });
 
 class NewChatButton extends React.Component {
-  // static propTypes = {
-  //   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  //   onClick: PropTypes.func.isRequired,
-  //   disabled: PropTypes.bool.isRequired,
-  // };
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
 
   state = {
     open: false,

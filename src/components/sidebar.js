@@ -1,30 +1,31 @@
-import React, { Component } from 'react';
+/* eslint no-underscore-dangle: 0 */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-//import Hidden from 'material-ui/Hidden';
-//import Classnames from 'classnames';
-//import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-import AddIcon from 'material-ui-icons/Add';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
-import Avatar from './avatar';
+// import Hidden from 'material-ui/Hidden';
+// import Classnames from 'classnames';
+// import Drawer from 'material-ui/Drawer';
 import moment from 'moment';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
 import Typography from 'material-ui/Typography';
+import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
+
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import TextField from 'material-ui/TextField';
+import Avatar from './avatar';
 
 import NewChatButton from './new-chat-button';
 
-const Styles = theme =>({
+const Styles = theme => ({
   drawerPaper: {
-    //position: 'relative',
+    // position: 'relative',
     height: '100%',
     width: 320,
-    
+
   },
   drawerHeader: {
     ...theme.mixins.toolbar,
@@ -39,18 +40,30 @@ const Styles = theme =>({
     position: 'absolute',
     left: 'auto',
     right: theme.spacing.unit * 3,
-    bottom: theme.spacing.unit * 3 + 48, // + bottom navigation
+    bottom: (theme.spacing.unit * 3) + 48, // + bottom navigation
   },
-  noChats :{
-    textAlign:'center',
+  noChats: {
+    textAlign: 'center',
   },
-  activeChat:{
+  activeChat: {
     backgroundColor: 'gray',
   },
 });
 
 
 class Sidebar extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.array.isRequired,
+      all: PropTypes.array.isRequired,
+    }).isRequired,
+    activeChat: PropTypes.objectOf(PropTypes.object).isRequired,
+    createChat: PropTypes.func.isRequired,
+    isConnected: PropTypes.bool.isRequired,
+  }
+
   state = {
     searchValue: '',
     activeTab: 0,
@@ -76,12 +89,14 @@ class Sidebar extends React.Component {
       .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
   };
 
-  render () {
-    const {classes,chats, activeChat, createChat,isConnected} =this.props;
-    const {activeTab}=this.state;
-    const chatsRender=this.filterChats(activeTab === 0 ? chats.my : chats.all)
-    //console.log('chats ',chats.all, chats.all.length);
-    return(
+  render() {
+    const {
+      classes, chats, activeChat, createChat, isConnected,
+    } = this.props;
+    const { activeTab } = this.state;
+    const chatsRender = this.filterChats(activeTab === 0 ? chats.my : chats.all);
+    // console.log('chats ',chats.all, chats.all.length);
+    return (
 
       <Drawer
         variant="permanent"
@@ -90,8 +105,13 @@ class Sidebar extends React.Component {
         }}
       >
         <div className={classes.drawerHeader}>
-          <TextField fullWidth margin="normal" placeholder="Search chats..." onChange={this.handleSearchChange}
-          disabled={!isConnected}/>
+          <TextField
+            fullWidth
+            margin="normal"
+            placeholder="Search chats..."
+            onChange={this.handleSearchChange}
+            disabled={!isConnected}
+          />
         </div>
 
         <Divider />
@@ -100,39 +120,41 @@ class Sidebar extends React.Component {
 
           {chatsRender && chatsRender.length ? (
 
-              chatsRender.map((chat) => ( 
-              <ListItem key={chat._id} 
-              button 
-              component={Link}
-              to={`/chat/${chat._id}`}
-              className={activeChat && activeChat._id===chat._id ? classes.activeChat :''}
-              disabled={!isConnected}
-              >
-                <Avatar textforcolorgen={chat.title}>
-                  {chat.title}
-                </Avatar>
-                <ListItemText primary={chat.title} secondary={moment(chat.createdAt).fromNow()}/>
-              </ListItem>
+              chatsRender.map(chat => (
+                <ListItem
+                  key={chat._id}
+                  button
+                  component={Link}
+                  to={`/chat/${chat._id}`}
+                  className={activeChat && activeChat._id === chat._id ? classes.activeChat : ''}
+                  disabled={!isConnected}
+                >
+                  <Avatar textforcolorgen={chat.title}>
+                    {chat.title}
+                  </Avatar>
+                  <ListItemText primary={chat.title} secondary={moment(chat.createdAt).fromNow()} />
+                </ListItem>
             ))
-          ):(
+          ) : (
             <Typography variant="subheading" className={classes.noChats}>
               no chats yet
-            </Typography>  
+            </Typography>
           )
-          
+
           }
         </List>
 
-        <NewChatButton  onClick={createChat} disabled={!isConnected}/> 
+        <NewChatButton onClick={createChat} disabled={!isConnected} />
 
-        
 
         <BottomNavigation onChange={this.handleTabChange} showLabels>
           <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
-        </BottomNavigation>    
+        </BottomNavigation>
 
       </Drawer>
-)}};
+    );
+  }
+}
 
 export default withStyles(Styles)(Sidebar);
