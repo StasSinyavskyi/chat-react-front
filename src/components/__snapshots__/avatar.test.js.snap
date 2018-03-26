@@ -13,17 +13,3 @@ exports[`<Avatar /> render correctly 1`] = `
   S
 </div>
 `;
-
-exports[`render correctly 1`] = `
-<div
-  className="MuiAvatar-root-4 MuiAvatar-colorDefault-5"
-  style={
-    Object {
-      "backgroundColor": "#ffc107",
-    }
-  }
->
-  N
-  S
-</div>
-`;

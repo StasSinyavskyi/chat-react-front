@@ -91,17 +91,10 @@ const Chatheader = ({
 Chatheader.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   activeChat: PropTypes.objectOf(PropTypes.object).isRequired,
-  activeUser: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    username: PropTypes.string,
-    isMember: PropTypes.bool.isRequired,
-    isCreator: PropTypes.bool.isRequired,
-    isChatMember: PropTypes.bool.isRequired,
-  }).isRequired,
+  activeUser: PropTypes.objectOf(PropTypes.object).isRequired,
   liveChat: PropTypes.func.isRequired,
   deleteChat: PropTypes.func.isRequired,
-  isConnected: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
 };
 
 export default withStyles(Styles)(Chatheader);

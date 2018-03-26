@@ -21,10 +21,6 @@ class ChatActionMenu extends React.Component {
     onDeleteClick: PropTypes.func.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     activeUser: PropTypes.shape({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      username: PropTypes.string,
-      isMember: PropTypes.bool.isRequired,
       isCreator: PropTypes.bool.isRequired,
       isChatMember: PropTypes.bool.isRequired,
     }).isRequired,
