@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -6,10 +7,15 @@ import Button from 'material-ui/Button';
 const styles = theme => ({
   signUpButton: {
     marginTop: theme.spacing.unit * 2,
-  }
-})
+  },
+});
 
 class LoginForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+
   state = {
     username: {
       value: '',
@@ -21,7 +27,7 @@ class LoginForm extends React.Component {
     },
   }
 
-  //HandleUserNameChang =(event) =>{
+  // HandleUserNameChang =(event) =>{
   //  event.persist();
   //  this.setState((prevState)=>({
   //    username : {
@@ -29,13 +35,15 @@ class LoginForm extends React.Component {
   //      value : event.target.value,
   //    }
   //  }));
-  //}
+  // }
 
   handleInputChange = (event) => {
     event.persist();
+
     const { name, value } = event.target;
-    //console.log(name +" "+ value+" ");
-    this.setState((prevState) => ({
+    // console.log(name,value);
+    // console.log(name +" "+ value+" ");
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
         value,
@@ -45,14 +53,14 @@ class LoginForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
+
     const { username, password } = this.state;
 
-    //console.log('Login:', username.value, password.value);
+    // console.log('Login:', username.value, password.value);
 
-    this.props.onSubmit(username.value,password.value);
-    
+    this.props.onSubmit(username.value, password.value);
   }
+
 
   render() {
     const { classes } = this.props;

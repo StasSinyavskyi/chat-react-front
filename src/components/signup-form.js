@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -6,10 +7,15 @@ import Button from 'material-ui/Button';
 const styles = theme => ({
   signUpButton: {
     marginTop: theme.spacing.unit * 2,
-  }
-})
+  },
+});
 
 class SignupForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+
   state = {
     username: {
       value: '',
@@ -41,7 +47,7 @@ class SignupForm extends React.Component {
     event.persist();
     const { name, value } = event.target;
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
         value,
@@ -54,14 +60,14 @@ class SignupForm extends React.Component {
 
     if (!this.validate()) {
       return;
-    } 
+    }
 
     const { username, password } = this.state;
 
-    //console.log('Sign up:', username.value, password.value);
+    // console.log('Sign up:', username.value, password.value);
 
-    //redux
-    this.props.onSubmit(username.value,password.value);
+    // redux
+    this.props.onSubmit(username.value, password.value);
   }
 
   render() {
@@ -96,7 +102,7 @@ class SignupForm extends React.Component {
           onChange={this.handleInputChange}
           error={!password.isValid}
         />
-         <TextField
+        <TextField
           required
           fullWidth
           label="Repeat password"

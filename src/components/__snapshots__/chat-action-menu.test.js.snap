@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatActionMenu /> render correctly 1`] = `
+<div>
+  <button
+    aria-haspopup="true"
+    aria-owns={null}
+    className="MuiButtonBase-root-46 MuiButton-root-31 ChatActionMenu-button-30"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label-32"
+    >
+      Action
+    </span>
+    <span
+      className="MuiTouchRipple-root-48"
+    />
+  </button>
+</div>
+`;

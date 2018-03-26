@@ -1,48 +1,100 @@
-import React, { Component } from 'react';
+/* eslint no-underscore-dangle: 0 */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+
 import Typography from 'material-ui/Typography';
 
-import ChatSettings from '../chat-settings';
+import ChatSettings from '../chat-settings.json';
+import Avatar from './avatar';
+import ChatHeaderMenu from '../containers/chat-header-menu';
+import ChatActionMenu from './chat-action-menu';
 
-const Styles = theme =>({
+const Styles = theme => ({
   appBar: {
     position: 'fixed',
-    //width: `calc(100% - 320px)`,
+    display: 'flex',
+    'flex-direction': 'row',
+    'justify-content': 'space-between',
+    'align-items': 'center',
+    // width: `calc(100% - 320px)`,
     marginLeft: 320,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${320}px)`,
-    },
+    backgroundColor: 'green',
+    width: `calc(100% - ${320}px)`,
+
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
+  appToolBar: {
+    display: 'flex',
+    // 'justify-content':'space-between',
+  },
+  appBarTitle: {
+    // flex:1,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    color: theme.palette.secondary.contrasText,
+  },
+  actionMenu: {
+    // flex:2,
+  },
+  chatHeaderMenu: {
+    display: 'flex',
+    // marginLeft: 'calc(100% - 50px)',
+    // border:'2px',
+  },
 });
 
 
-
-const Chatheader =({classes})=>(
+const Chatheader = ({
+  classes, activeChat, activeUser, liveChat, deleteChat, isConnected,
+}) => (
   <AppBar color="primary" className={classes.appBar}>
-    <Toolbar>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        onClick={this.handleDrawerToggle}
-        className={classes.navIconHide}
-        > 
-        <MenuIcon />
-        </IconButton>
-      <Typography variant="title" color="inherit" noWrap>
-        {ChatSettings.title}
-      </Typography>
+    <Toolbar className={classes.appToolBar}>
+
+      {activeChat ? (
+        <React.Fragment>
+          <Avatar textforcolorgen={activeChat.title}>
+            {activeChat.title}
+          </Avatar>
+          <Typography variant="title" color="inherit" className={classes.appBarTitle}>
+            {activeChat.title}
+
+          </Typography>
+          <ChatActionMenu
+            disabled={!isConnected}
+            activeUser={activeUser}
+            onLiveClick={() => liveChat(activeChat._id)}
+            onDeleteClick={() => deleteChat(activeChat._id)}
+            className={classes.actionMenu}
+          />
+        </React.Fragment>
+          ) : (
+            <Typography variant="title" color="inherit" noWrap className={classes.appBarTitle}>
+              {ChatSettings.title}
+
+            </Typography>
+          )
+        }
+
+
     </Toolbar>
-  </AppBar>   
+    <ChatHeaderMenu className={classes.chatHeaderMenu} />
+  </AppBar>
 );
 
+Chatheader.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  activeChat: PropTypes.objectOf(PropTypes.object).isRequired,
+  activeUser: PropTypes.objectOf(PropTypes.object).isRequired,
+  liveChat: PropTypes.func.isRequired,
+  deleteChat: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
+};
 
 export default withStyles(Styles)(Chatheader);

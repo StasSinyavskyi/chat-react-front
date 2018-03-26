@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatActionMenu /> render correctly 1`] = `
+<div>
+  <button
+    aria-haspopup="true"
+    aria-owns={null}
+    className="MuiButtonBase-root-39 MuiButtonBase-disabled-40 MuiButton-root-24 MuiButton-disabled-33 ChatMenu-button-23"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+  >
+    <span
+      className="MuiButton-label-25"
+    >
+      Menu
+    </span>
+  </button>
+</div>
+`;
+
+exports[`<ChatMenu /> render correctly 1`] = `
+<div>
+  <button
+    aria-haspopup="true"
+    aria-owns={null}
+    className="MuiButtonBase-root-39 MuiButtonBase-disabled-40 MuiButton-root-24 MuiButton-disabled-33 ChatMenu-button-23"
+    disabled={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={-1}
+    type="button"
+  >
+    <span
+      className="MuiButton-label-25"
+    >
+      Menu
+    </span>
+  </button>
+</div>
+`;

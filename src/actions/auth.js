@@ -1,121 +1,158 @@
-import {SIGNUP_REQUEST, 
-  SIGNUP_SUCCESS, 
-  SIGNUP_FAILURE,
-  LOGIN_REQUEST,
-  LOGIN_FAILURE,
-  LOGIN_SUCCESS,
-  LOGOUT_FAILURE,
-  LOGOUT_REQUEST,
-  LOGOUT_SUCCESS,
-  RECIEVE_AUTH_FAILURE,
-  RECIEVE_AUTH_REQUEST,
-  RECIEVE_AUTH_SUCCESS,
-  } from '../constants';
+import * as types from '../constants/auth';
 
-//action creator
-export function login(username, password){
-  return (dispatch)=>{
-    dispatch({
-      type: LOGIN_REQUEST,
-    })
+import { chatApi, redirectto } from './services';
 
-    return  fetch('http://localhost:8000/v1/login', {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      //.then(json => console.log(json))
-      //.catch(reason => console.error(reason));
-      .then(json => 
-        { 
-          if (!json.token) {throw console.error('Token is not provided');}
-  
-          localStorage.setItem('token',json.token);
-  
-          dispatch({type: LOGIN_SUCCESS, payload: json,})}
-      )
-      .catch(reason => dispatch({type: LOGIN_FAILURE, payload: reason,}));
 
-  }
-}
-
-//action creator
-export function logout(){
-  return (dispatch)=>{
-    dispatch({
-      type: LOGOUT_REQUEST,
-    })
-  }
-
-}
-
-//action creator
-export function signup(username, password){
-  return (dispatch)=>{
-    dispatch({
-      type: SIGNUP_REQUEST
-    })
-
-  return  fetch('http://localhost:8000/v1/signup', {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        password,
-        //username: username.value,
-        //password: password.value,
-      }),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json =>{ 
-        if (!json.token){throw console.error('Token is not provided');}
-
-        localStorage.setItem('token',json.token);
-
-        dispatch({type: SIGNUP_SUCCESS, payload: json,})}
-      )
-      .catch(reason => dispatch({type: SIGNUP_FAILURE, payload: reason,}));
-  }
-}
-
-//action creator
-export function receiveAuth(){
-  //thunk
-  return (dispatch,getState)=>{
-    const {token}=getState().auth;//auth is the name of reducer
-
-    if (!token){
-      console.log("token not exist");
-     return dispatch({
-        type: RECIEVE_AUTH_FAILURE,
-      })
+// action creator
+export function login(username, password) {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services;
+    if (isFetching.login) {
+      return Promise.resolve();
     }
-console.log("token exist");
-    return  fetch('http://localhost:8000/v1/users/me', {
-      method: "GET", //we can skip it because GET is default method     
-      headers: {
-        'Autherization': 'Bearer ${token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json =>{ 
-        dispatch({type: RECIEVE_AUTH_SUCCESS, payload: json,})}
-      )
-      .catch(reason => dispatch({type: RECIEVE_AUTH_FAILURE, payload: reason,}));
-  
 
+    dispatch({
+      type: types.LOGIN_REQUEST,
+    });
 
-  }
+    return chatApi('login', username, password)
+
+      .then((json) => {
+        if (!json.token) {
+          // throw console.error('Token is not provided');
+          dispatch({ type: types.LOGIN_FAILURE, payload: json });
+        } else {
+          localStorage.setItem('token', json.token);
+
+          dispatch({ type: types.LOGIN_SUCCESS, payload: json });
+        }
+      })
+      .catch(reason => dispatch({ type: types.LOGIN_FAILURE, payload: reason }));
+  };
 }
+
+// action creator
+export function logout() {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services;
+    if (isFetching.logout) {
+      return Promise.resolve();
+    }
+
+    dispatch({
+      type: types.LOGOUT_REQUEST,
+    });
+
+    localStorage.removeItem('token');
+
+    dispatch({
+      type: types.LOGOUT_SUCCESS,
+    });
+    return Promise.resolve();
+  };
+}
+
+
+// action creator
+export function toProfile() {
+  return (dispatch) => {
+    dispatch(redirectto('/profile'));
+  };
+}
+
+// action creator
+export function toChat() {
+  return (dispatch) => {
+    dispatch(redirectto('/chat'));
+  };
+}
+
+
+// action creator
+export function signup(username, password) {
+  return (dispatch, getState) => {
+    const { isFetching } = getState().services;
+    if (isFetching.signup) {
+      return Promise.resolve();
+    }
+
+    dispatch({
+      type: types.SIGNUP_REQUEST,
+    });
+
+    return chatApi('signup', username, password)
+
+      .then((json) => {
+        if (!json.token) {
+          // throw console.error('Token is not provided');
+          dispatch({ type: types.SIGNUP_FAILURE, payload: json });
+        } else {
+          localStorage.setItem('token', json.token);
+          dispatch({ type: types.SIGNUP_SUCCESS, payload: json });
+        }
+      })
+      .catch(reason => dispatch({ type: types.SIGNUP_FAILURE, payload: reason }));
+  };
+}
+
+// action creator
+export function recieveAuth() {
+  // thunk
+  return (dispatch, getState) => {
+    const { token } = getState().auth;// auth is the name of reducer
+    const { isFetching } = getState().services;
+    if (isFetching.receiveAuth) {
+      return Promise.resolve();
+    }
+
+
+    if (!token) {
+      // console.log("token not exist");
+      return dispatch({
+        type: types.RECIEVE_AUTH_FAILURE,
+      });
+    }
+    // console.log(token);
+    return chatApi('users/me', token)
+
+      .then((json) => {
+        if (!json.user) { throw console.error('User is not returned'); }
+        dispatch({ type: types.RECIEVE_AUTH_SUCCESS, payload: json });
+      })
+      .catch(reason => dispatch({ type: types.RECIEVE_AUTH_FAILURE, payload: reason }));
+  };
+}
+
+export function editProfile(username, firstname, lastname) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+    const { isFetching } = getState().services;
+    if (isFetching.editProfile) {
+      return Promise.resolve();
+    }
+
+
+    if (!token) {
+      // console.log("token not exist");
+      return dispatch({
+        type: types.RECIEVE_AUTH_FAILURE,
+      });
+    }
+
+    dispatch({
+      type: types.EDIT_PROFILE_REQUEST,
+    });
+
+    return chatApi('userupdate', token, username, firstname, lastname)
+
+      .then((json) => {
+        if (!json.user) { dispatch({ type: types.EDIT_PROFILE_FAILURE, payload: json }); } else {
+          dispatch({ type: types.EDIT_PROFILE_SUCCESS, payload: json });
+          dispatch(redirectto('/chat'));
+          // console.log('tt');
+        }
+      })
+      .catch(reason => dispatch({ type: types.EDIT_PROFILE_FAILURE, payload: reason }));
+  };
+}
+

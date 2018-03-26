@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import Classnames from 'classnames';
+/* eslint no-underscore-dangle: 0 */
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import moment from 'moment';
 import { withStyles } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 import Avatar from './avatar';
 
-import Paper from 'material-ui/Paper';
+import senderName from '../utils/sender-name';
+import randomColor from '../utils/color-from';
 
-import Typography from 'material-ui/Typography';
-
-
-import AvatarText from '../utils/avatar-text';
-
-const Styles = theme =>({
+const styles = theme => ({
   messageWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
   },
-  myMessageWrappper: {
+  messageWrappperFromMe: {
     justifyContent: 'flex-end',
   },
   message: {
@@ -28,44 +29,86 @@ const Styles = theme =>({
   },
   messageFromMe: {
     marginRight: theme.spacing.unit * 2,
-    backgroundColor: '#e6dcff'
+    backgroundColor: '#e6dcff',
   },
-  
+  statusMessage: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  statusMessageUser: {
+    display: 'inline',
+  },
 });
 
+const Message = ({
+  classes, content, sender, activeUser, createdAt, statusMessage,
+}) => {
+  const isMessageFromMe = sender._id === activeUser._id;
 
+  const displayedName = senderName(sender);
 
-class Message extends React.Component {
-  render () {
-  const  {classes, sender, content} = this.props; 
-  const myMessage = sender === 'me';
-  //const title = AvatarText(sender)
-    const userAvatar = (
-      <Avatar textforcolorgen={sender}>
-        {sender}
-      </Avatar>
-    );
-
+  if (statusMessage) {
     return (
-      <div  className={Classnames(
-        classes.messageWrapper,
-        myMessage && classes.myMessageWrappper)}>
-
-        {!myMessage && userAvatar}
-        <Paper className={Classnames(
-            classes.message,
-            myMessage && classes.myMessageWrappper)}>
-            <Typography variant="caption">
-              {sender}
-            </Typography>
-            <Typography variant="body1">
-              {content}
-            </Typography>
-          </Paper>
-
-        {myMessage && userAvatar}
-      </div>  
+      <div className={classes.messageWrapper}>
+        <Typography className={classes.statusMessage}>
+          <Typography
+            variant="caption"
+            style={{ color: randomColor(sender._id) }}
+            className={classes.statusMessageUser}
+          >
+            {displayedName}
+          </Typography>
+          {content}
+          <Typography variant="caption" component="span">
+            {moment(createdAt).fromNow()}
+          </Typography>
+        </Typography>
+      </div>
     );
-} }
+  }
 
-export default withStyles(Styles)(Message);
+  const userAvatar = <Avatar textforcolorgen={displayedName}>{displayedName}</Avatar>;
+
+  return (
+    <div
+      className={classNames(
+        classes.messageWrapper,
+        isMessageFromMe && classes.messageWrappperFromMe,
+      )}
+    >
+      {!isMessageFromMe && userAvatar}
+      <Paper className={classNames(classes.message, isMessageFromMe && classes.messageFromMe)}>
+        <Typography variant="caption" style={{ color: randomColor(sender._id) }}>
+          {displayedName}
+        </Typography>
+        <Typography variant="body1">{content}</Typography>
+        <Typography variant="caption" className={classes.time}>
+          {moment(createdAt).fromNow()}
+        </Typography>
+      </Paper>
+      {isMessageFromMe && userAvatar}
+    </div>
+  );
+};
+
+Message.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  content: PropTypes.string.isRequired,
+  sender: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+  }).isRequired,
+  activeUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  statusMessage: PropTypes.bool,
+};
+
+Message.defaultProps = {
+  statusMessage: false,
+};
+
+export default withStyles(styles)(Message);
