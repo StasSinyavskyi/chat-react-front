@@ -1,22 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ChatActionMenu /> render correctly 1`] = `
-<header
-  className="MuiPaper-root-82 MuiPaper-shadow4-88 MuiAppBar-root-74 MuiAppBar-positionFixed-75 MuiAppBar-colorPrimary-80 mui-fixed Chatheader-appBar-68"
->
-  <div
-    className="MuiToolbar-root-109 MuiToolbar-gutters-110 Chatheader-appToolBar-70"
-  >
-    Avatar
-    <h2
-      className="MuiTypography-root-111 MuiTypography-title-117 MuiTypography-colorInherit-130 Chatheader-appBarTitle-71"
-    />
-    ChatActionMenu
-  </div>
-  ChatHeaderMenu
-</header>
-`;
-
 exports[`<ChatHeader /> render correctly 1`] = `
 <header
   className="MuiPaper-root-82 MuiPaper-shadow4-88 MuiAppBar-root-74 MuiAppBar-positionFixed-75 MuiAppBar-colorPrimary-80 mui-fixed Chatheader-appBar-68"

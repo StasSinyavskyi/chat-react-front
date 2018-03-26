@@ -17,7 +17,6 @@ const Styles = ({
     height: '100%',
     width: '100%',
     overflow: 'hidden',
-    // background:'red',
   },
 });
 
@@ -36,36 +35,10 @@ const Chat = ({
   </main>
 );
 
-// class Chat extends React.Component {
-//   render() {
-//     const {
-//       classes, messages, activeUser, activeChat, sendMessage, joinChat, isConnected,
-//     } = this.props;
-//     // console.log('activeUser 1 ', activeUser);
-//     return (
-//       <main className={classes.chatLayout}>
-//         <ChatMessages messages={messages} activeUser={activeUser} activeChat={activeChat} />
-//         {activeChat && <MessageInput
-//           sendMessage={sendMessage}
-//           onJoinButtonClick={() => joinChat(activeChat._id)}
-//           activeUser={activeUser}
-//           showJoinButton={!activeUser.isChatMember}
-//           disabled={!isConnected}
-//         />}
-//       </main>
-//     );
-//   }
-// }
-
 
 Chat.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  messages: PropTypes.shape({
-    chatId: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    sender: PropTypes.object.isRequired,
-    createdAt: PropTypes.string.isRequired,
-  }).isRequired,
+  messages: PropTypes.objectOf(PropTypes.object).isRequired,
   activeUser: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -74,7 +47,9 @@ Chat.propTypes = {
     isCreator: PropTypes.bool.isRequired,
     isChatMember: PropTypes.bool.isRequired,
   }).isRequired,
-  activeChat: PropTypes.objectOf(PropTypes.object).isRequired,
+  activeChat: PropTypes.shape({
+    _id: PropTypes.string,
+  }).isRequired,
   sendMessage: PropTypes.func.isRequired,
   joinChat: PropTypes.func.isRequired,
   isConnected: PropTypes.bool.isRequired,

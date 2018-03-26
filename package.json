@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "cross-env": "^5.1.4",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^1.0.0-beta.34",
@@ -34,7 +35,8 @@
     "lint": "eslint src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier-eslint \"**/*.{js,json} \"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepush": "cross-env CI=true npm test"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

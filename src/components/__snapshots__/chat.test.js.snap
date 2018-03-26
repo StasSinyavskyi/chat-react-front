@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Chat /> render correctly 1`] = `
+<main
+  className="Chat-chatLayout-2"
+>
+  ChatMessages
+  MessageInput
+</main>
+`;
