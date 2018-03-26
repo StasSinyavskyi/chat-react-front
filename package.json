@@ -34,8 +34,7 @@
     "lint": "eslint src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier-eslint \"**/*.{js,json} \"",
-    "precommit": "lint-staged",
-    "prepush": "npm run test"
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
