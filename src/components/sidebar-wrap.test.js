@@ -2,19 +2,18 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import SidebarWrap from './sidebar-wrap';
 
-jest.mock('./message', () => () => 'Message');
+jest.mock('./sidebar', () => () => 'Sidebar');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<SidebarWrap />', () => {
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <SidebarWrap
+      createChat={() => 'createChat'}
+      chats={{ active: {}, my: [], all: [] }}
+      activeChats={{ }}
+      isConnected
     />
   );
 

@@ -2,19 +2,16 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import ErrorMessage from './error-message';
 
-jest.mock('./message', () => () => 'Message');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<ErrorMessage />', () => {
+  const err = new Error('Test error');
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <ErrorMessage
+      clearErrors={() => 'clearErrors'}
+      errors={err}
     />
   );
 

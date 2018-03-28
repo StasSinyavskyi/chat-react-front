@@ -2,19 +2,21 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import ProfileForm from './profile-form';
 
-jest.mock('./message', () => () => 'Message');
+
+jest.mock('./chat-header', () => () => 'Chatheader');
+jest.mock('./error-message', () => () => 'ErrorMessage');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<ProfileForm />', () => {
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <ProfileForm
+      recieveAuth={() => 'recieveAuth'}
+      editProfile={() => 'editProfile'}
+      clearErrors={() => 'clearErrors'}
+      errors={new Error('Test error')}
+      user={{ isMember: false, isCreator: true, isChatMember: true }}
     />
   );
 

@@ -2,19 +2,14 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import LoginForm from './login-form';
 
-jest.mock('./message', () => () => 'Message');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<LoginForm />', () => {
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <LoginForm
+      onSubmit={() => 'onSubmit'}
     />
   );
 

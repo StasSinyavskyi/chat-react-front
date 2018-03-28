@@ -2,19 +2,15 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import NewChatButton from './new-chat-button';
 
-jest.mock('./message', () => () => 'Message');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<NewChatButton />', () => {
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <NewChatButton
+      onClick={() => 'onClick'}
+      disabled={false}
     />
   );
 

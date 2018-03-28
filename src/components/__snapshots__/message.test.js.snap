@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Message /> render correctly 1`] = `
+<div
+  className="Message-messageWrapper-58 Message-messageWrappperFromMe-59"
+>
+  <div
+    className="MuiPaper-root-64 MuiPaper-shadow2-68 MuiPaper-rounded-65 Message-message-60 Message-messageFromMe-61"
+  >
+    <span
+      className="MuiTypography-root-91 MuiTypography-caption-101"
+      style={
+        Object {
+          "color": "#8bc34a",
+        }
+      }
+    >
+      Test Test
+    </span>
+    <p
+      className="MuiTypography-root-91 MuiTypography-body1-100"
+    >
+      Test message
+    </p>
+    <span
+      className="MuiTypography-root-91 MuiTypography-caption-101"
+    >
+      Invalid date
+    </span>
+  </div>
+  Avatar
+</div>
+`;
+
+exports[`<Message /> render correctly 2 1`] = `
+<div
+  className="Message-messageWrapper-58"
+>
+  <p
+    className="MuiTypography-root-91 MuiTypography-body1-100 Message-statusMessage-62"
+  >
+    <span
+      className="MuiTypography-root-91 MuiTypography-caption-101 Message-statusMessageUser-63"
+      style={
+        Object {
+          "color": "#8bc34a",
+        }
+      }
+    >
+      Test Test
+    </span>
+    Test message
+    <span
+      className="MuiTypography-root-91 MuiTypography-caption-101"
+    >
+      Invalid date
+    </span>
+  </p>
+</div>
+`;

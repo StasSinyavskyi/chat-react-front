@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfileForm /> render correctly 1`] = `
+Array [
+  "Chatheader",
+  <div
+    className="MuiGrid-typeContainer-211 MuiGrid-spacing-xs-16-233 MuiGrid-justify-xs-center-228"
+>
+    <div
+        className="MuiPaper-root-301 MuiPaper-shadow2-305 MuiPaper-rounded-302 ProfileEdit-paper-207"
+    >
+        <header
+            className="MuiPaper-root-301 MuiPaper-shadow4-307 MuiAppBar-root-328 MuiAppBar-positionStatic-332 MuiAppBar-colorDefault-333"
+        >
+            <h2
+                className="MuiTypography-root-336 MuiTypography-title-342 MuiTypography-colorInherit-355 ProfileEdit-profileTitle-210"
+            >
+                Profile edit
+            </h2>
+        </header>
+        <div
+            className="ProfileEdit-tabContent-208"
+        >
+            <form
+                onSubmit={[Function]}
+            >
+                <div
+                    aria-describedby={undefined}
+                    className="MuiFormControl-root-360 MuiFormControl-marginNormal-361 MuiFormControl-fullWidth-363"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                >
+                    <label
+                        className="MuiFormLabel-root-370 MuiInputLabel-root-364 MuiInputLabel-formControl-365 MuiInputLabel-animated-368"
+                        data-shrink={false}
+                        htmlFor={undefined}
+                    >
+                        Username
+                        <span
+                            className=""
+                        >
+                             *
+                        </span>
+                    </label>
+                    <div
+                        className="MuiInput-root-374 MuiInput-fullWidth-382 MuiInput-formControl-375 MuiInput-inkbar-376 MuiInput-underline-380"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                    >
+                        <input
+                            aria-invalid={false}
+                            aria-required={true}
+                            autoComplete="username"
+                            autoFocus={undefined}
+                            className="MuiInput-input-383"
+                            defaultValue={undefined}
+                            disabled={false}
+                            id={undefined}
+                            name="username"
+                            onChange={[Function]}
+                            onKeyDown={undefined}
+                            onKeyUp={undefined}
+                            placeholder="Type new username..."
+                            readOnly={undefined}
+                            required={true}
+                            rows={undefined}
+                            type="text"
+                            value=""
+                        />
+                    </div>
+                </div>
+                <div
+                    aria-describedby={undefined}
+                    className="MuiFormControl-root-360 MuiFormControl-marginNormal-361 MuiFormControl-fullWidth-363"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                >
+                    <label
+                        className="MuiFormLabel-root-370 MuiInputLabel-root-364 MuiInputLabel-formControl-365 MuiInputLabel-animated-368"
+                        data-shrink={false}
+                        htmlFor={undefined}
+                    >
+                        First name
+                    </label>
+                    <div
+                        className="MuiInput-root-374 MuiInput-fullWidth-382 MuiInput-formControl-375 MuiInput-inkbar-376 MuiInput-underline-380"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                    >
+                        <input
+                            aria-invalid={false}
+                            aria-required={false}
+                            autoComplete="firstname"
+                            autoFocus={undefined}
+                            className="MuiInput-input-383"
+                            defaultValue={undefined}
+                            disabled={false}
+                            id={undefined}
+                            name="firstname"
+                            onChange={[Function]}
+                            onKeyDown={undefined}
+                            onKeyUp={undefined}
+                            placeholder="Type your first name..."
+                            readOnly={undefined}
+                            required={undefined}
+                            rows={undefined}
+                            type="text"
+                            value=""
+                        />
+                    </div>
+                </div>
+                <div
+                    aria-describedby={undefined}
+                    className="MuiFormControl-root-360 MuiFormControl-marginNormal-361 MuiFormControl-fullWidth-363"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                >
+                    <label
+                        className="MuiFormLabel-root-370 MuiInputLabel-root-364 MuiInputLabel-formControl-365 MuiInputLabel-animated-368"
+                        data-shrink={false}
+                        htmlFor={undefined}
+                    >
+                        Last name
+                    </label>
+                    <div
+                        className="MuiInput-root-374 MuiInput-fullWidth-382 MuiInput-formControl-375 MuiInput-inkbar-376 MuiInput-underline-380"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                    >
+                        <input
+                            aria-invalid={false}
+                            aria-required={false}
+                            autoComplete="lastname"
+                            autoFocus={undefined}
+                            className="MuiInput-input-383"
+                            defaultValue={undefined}
+                            disabled={false}
+                            id={undefined}
+                            name="lastname"
+                            onChange={[Function]}
+                            onKeyDown={undefined}
+                            onKeyUp={undefined}
+                            placeholder="Type your last name..."
+                            readOnly={undefined}
+                            required={undefined}
+                            rows={undefined}
+                            type="text"
+                            value=""
+                        />
+                    </div>
+                </div>
+                <button
+                    className="MuiButtonBase-root-404 MuiButton-root-389 MuiButton-raised-394 MuiButton-raisedPrimary-396 MuiButton-fullWidth-403 ProfileEdit-submitButton-209"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    tabIndex={0}
+                    type="submit"
+                >
+                    <span
+                        className="MuiButton-label-390"
+                    >
+                        Save
+                    </span>
+                    <span
+                        className="MuiTouchRipple-root-406"
+                    />
+                </button>
+            </form>
+        </div>
+    </div>
+</div>,
+  "ErrorMessage",
+]
+`;

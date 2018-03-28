@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SidebarWrap /> render correctly 1`] = `
+<div>
+  <div
+    className="MuiDrawer-docked-39"
+  >
+    <div
+      className="MuiPaper-root-50 MuiPaper-shadow0-52 MuiDrawer-paper-40 MuiDrawer-paperAnchorLeft-41 MuiDrawer-paperAnchorDockedLeft-45"
+    >
+      Sidebar
+    </div>
+  </div>
+</div>
+`;

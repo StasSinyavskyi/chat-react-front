@@ -2,19 +2,21 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatMessges from './chat-messages';
+import WelcomePage from './welcome-page';
 
-jest.mock('./message', () => () => 'Message');
+jest.mock('./login-form', () => () => 'LoginForm');
+jest.mock('./signup-form', () => () => 'SignupForm');
+jest.mock('./error-message', () => () => 'ErrorMessage');
 
 // if we have several test we can join them in describe
-describe('<ChatMessges />', () => {
+describe('<WelcomePage />', () => {
   const testParam = (
-    <ChatMessges
-      activeUser={{ isMember: false, isCreator: true, isChatMember: true }}
-      activeChat={{ }}
-      messages={{
- chatId: '123', content: 'Test', sender: {}, createdAt: '',
-}}
+    <WelcomePage
+      signup={() => 'signup'}
+      login={() => 'login'}
+      clearErrors={() => 'clearErrors'}
+      recieveAuth={() => 'recieveAuth'}
+      isUserAuthentificated={false}
     />
   );
 

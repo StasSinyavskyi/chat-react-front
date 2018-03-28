@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageInput /> render correctly 1`] = `
+<div
+  className="MessageInput-messageInputWrapper-45"
+>
+  <div
+    className="MuiPaper-root-47 MuiPaper-shadow6-55 MuiPaper-rounded-48 MessageInput-messageInput-46"
+  >
+    <div
+      className="MuiInput-root-74 MuiInput-fullWidth-82 MuiInput-inkbar-76 MuiInput-underline-80"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyPress={[Function]}
+    >
+      <input
+        aria-invalid={undefined}
+        aria-required={undefined}
+        autoComplete={undefined}
+        autoFocus={undefined}
+        className="MuiInput-input-83"
+        defaultValue={undefined}
+        disabled={false}
+        id={undefined}
+        name={undefined}
+        onChange={[Function]}
+        onKeyDown={undefined}
+        onKeyUp={undefined}
+        placeholder="Type your message…"
+        readOnly={undefined}
+        required={undefined}
+        rows={undefined}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<MessageInput /> render correctly 2`] = `
+<div
+  className="MessageInput-messageInputWrapper-45"
+>
+  <div
+    className="MuiPaper-root-47 MuiPaper-shadow6-55 MuiPaper-rounded-48 MessageInput-messageInput-46"
+  >
+    <button
+      className="MuiButtonBase-root-128 MuiButton-root-113 MuiButton-raised-118 MuiButton-raisedPrimary-120 MuiButton-fullWidth-127"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label-114"
+      >
+        Join
+      </span>
+      <span
+        className="MuiTouchRipple-root-130"
+      />
+    </button>
+  </div>
+</div>
+`;
