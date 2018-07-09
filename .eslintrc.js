@@ -7,5 +7,6 @@ module.exports = {
     rules :{
       "react/prop-types" : 1,
       "react/jsx-filename-extension" : "off",
+      "linebreak-style": 0,
     }
 };
